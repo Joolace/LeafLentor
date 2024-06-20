@@ -40,3 +40,5 @@ Love this plugin? Here's how you can help:
 I'm actively developing and improving this plugin. If you need assistance or have feature requests, please reach out!
 
 Your support helps me dedicate more time to this project.
+
+NOTE: It's the first wordpress plugin I've made, I'm still a beginner, I'm not yet very expert in php and js. I uploaded this plugin to GitHub to get some help from the community.
