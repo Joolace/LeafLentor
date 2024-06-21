@@ -35,6 +35,7 @@ function register_leaflet_elementor_widget() {
 add_action( 'elementor/widgets/widgets_registered', 'register_leaflet_elementor_widget' );
 
 function check_for_leaflet_widget_update($force_update = false) {
+
     $response = wp_remote_get('https://api.github.com/repos/Joolace/leaflet-elementor/releases/latest');
 
     if (is_wp_error($response)) {
@@ -50,6 +51,8 @@ function check_for_leaflet_widget_update($force_update = false) {
     if ($force_update || version_compare($current_version, $latest_version, '<')) { 
         $download_url = $release_data->zipball_url;
         update_leaflet_elementor_widget($download_url, $latest_version);
+    } else {
+        echo '<div class="notice notice-success is-dismissible"><p>Il plugin Leaflet Elementor Widget è già aggiornato.</p></div>';
     }
 }
 
