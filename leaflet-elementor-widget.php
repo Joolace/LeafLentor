@@ -34,7 +34,7 @@ function register_leaflet_elementor_widget() {
 }
 add_action( 'elementor/widgets/widgets_registered', 'register_leaflet_elementor_widget' );
 
-function check_for_leaflet_widget_update() {
+function check_for_leaflet_widget_update($force_update = false) {
     $response = wp_remote_get('https://api.github.com/repos/Joolace/leaflet-elementor/releases/latest');
 
     if (is_wp_error($response)) {
@@ -47,8 +47,9 @@ function check_for_leaflet_widget_update() {
 
     $current_version = get_option('leaflet_elementor_widget_version');
 
-    if (version_compare($current_version, $latest_version, '<')) {
-        add_action( 'admin_notices', 'leaflet_elementor_update_notice' );
+    if ($force_update || version_compare($current_version, $latest_version, '<')) { 
+        $download_url = $release_data->zipball_url;
+        update_leaflet_elementor_widget($download_url, $latest_version);
     }
 }
 
@@ -73,13 +74,19 @@ function update_leaflet_elementor_widget($download_url, $latest_version) {
     $upgrader = new Plugin_Upgrader($skin);
     $result = $upgrader->install($download_url);
 
-    if (is_wp_error($result)) {
+    if (is_wp_error($result)) { 
         error_log('Errore durante l\'installazione dell\'aggiornamento del plugin Leaflet Elementor: ' . $result->get_error_message());
-        echo '<div class="notice notice-error"><p>Si è verificato un errore durante l\'aggiornamento del plugin.</p></div>';
-    } else {
-        update_option('leaflet_elementor_widget_version', $latest_version);
-        activate_plugin(plugin_basename(__FILE__));
-        echo '<div class="notice notice-success is-dismissible"><p>Il plugin Leaflet Elementor Widget è stato aggiornato alla versione ' . $latest_version . '.</p></div>';
+        echo '<div class="notice notice-error"><p>Si \u00e8 verificato un errore durante l\'aggiornamento del plugin.</p></div>';
+    } elseif ( $result['destination_name'] ) { 
+        $activate_result = activate_plugin($result['destination_name']);
+
+        if (is_wp_error($activate_result)) {
+            error_log('Errore durante l\'attivazione del plugin Leaflet Elementor: ' . $activate_result->get_error_message());
+            echo '<div class="notice notice-error"><p>Si \u00e8 verificato un errore durante l\'attivazione del plugin.</p></div>';
+        } else {
+            update_option('leaflet_elementor_widget_version', $latest_version);
+            echo '<div class="notice notice-success is-dismissible"><p>Il plugin Leaflet Elementor Widget \u00e8 stato aggiornato alla versione ' . $latest_version . '.</p></div>';
+        }
     }
 }
 
@@ -96,6 +103,7 @@ function leaflet_elementor_widget_options_page() {
         'leaflet_elementor_widget_settings_page_content'
     );
 }
+
 
 function leaflet_elementor_widget_settings_page_content() {
     if (isset($_POST['update_plugin'])) {
@@ -135,6 +143,10 @@ function leaflet_elementor_widget_settings_page_content() {
     echo '</div>';
 }
 
+function leaflet_elementor_widget_update_settings_callback() {
+    echo '<p>Controlla se vuoi abilitare l\'aggiornamento automatico del plugin.</p>';
+}
+
 function leaflet_elementor_widget_settings() {
     add_settings_section(
         'leaflet_elementor_widget_update_settings',
@@ -157,10 +169,6 @@ function leaflet_elementor_widget_settings() {
 function enable_auto_update_callback() {
     $option = get_option('enable_auto_update');
     echo '<input type="checkbox" id="enable_auto_update" name="enable_auto_update" value="1" ' . checked(1, $option, false) . ' />';
-}
-
-function leaflet_elementor_widget_update_settings_callback() {
-    echo '<p>Controlla se vuoi abilitare l\'aggiornamento automatico del plugin.</p>';
 }
 
 register_activation_hook(__FILE__, 'activate_leaflet_elementor_widget');
