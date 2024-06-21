@@ -9,8 +9,8 @@
     "requires": "6.3",
     "tested": "6.5.4",
     "requires_php": "8.0",
-    "added": "2015-08-21 00:00:00",
-    "last_updated": "2023-10-26 09:30:00",
+    "added": "2024-06-20 00:00:00",
+    "last_updated": "2024-06-20 09:30:00",
     "homepage": "https://github.com/Joolace",
     "sections": {
         "description": "Leaflet Map.",
