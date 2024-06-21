@@ -58,7 +58,7 @@ function check_for_leaflet_widget_update() {
 }
 
 function update_leaflet_elementor_widget($download_url, $latest_version) {
-    require_once ABSPATH . 'wp-admin/includes/plugin-install.php'; 
+    require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 
     $result = install_plugin_from_zip($download_url);
 
@@ -67,8 +67,8 @@ function update_leaflet_elementor_widget($download_url, $latest_version) {
     } else {
         update_option('leaflet_elementor_widget_version', $latest_version);
 
-        if (!is_plugin_active('leaflet-elementor-widget/leaflet-elementor-widget.php')) {
-            activate_plugin('leaflet-elementor-widget/leaflet-elementor-widget.php');
+        if (!is_plugin_active(plugin_basename(__FILE__))) {
+            activate_plugin(plugin_basename(__FILE__));
         }
     }
 }
