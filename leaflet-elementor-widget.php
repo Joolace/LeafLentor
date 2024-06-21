@@ -35,7 +35,6 @@ function register_leaflet_elementor_widget() {
 add_action( 'elementor/widgets/widgets_registered', 'register_leaflet_elementor_widget' );
 
 function check_for_leaflet_widget_update($force_update = false) {
-
     $response = wp_remote_get('https://api.github.com/repos/Joolace/leaflet-elementor/releases/latest');
 
     if (is_wp_error($response)) {
@@ -51,8 +50,6 @@ function check_for_leaflet_widget_update($force_update = false) {
     if ($force_update || version_compare($current_version, $latest_version, '<')) { 
         $download_url = $release_data->zipball_url;
         update_leaflet_elementor_widget($download_url, $latest_version);
-    } else {
-        echo '<div class="notice notice-success is-dismissible"><p>Il plugin Leaflet Elementor Widget è già aggiornato.</p></div>';
     }
 }
 
@@ -106,7 +103,6 @@ function leaflet_elementor_widget_options_page() {
         'leaflet_elementor_widget_settings_page_content'
     );
 }
-
 
 function leaflet_elementor_widget_settings_page_content() {
     if (isset($_POST['update_plugin'])) {
@@ -176,5 +172,4 @@ function enable_auto_update_callback() {
 
 register_activation_hook(__FILE__, 'activate_leaflet_elementor_widget');
 add_action('admin_init', 'leaflet_elementor_widget_settings');
-add_action('admin_init', 'check_for_leaflet_widget_update');
 add_action('admin_menu', 'leaflet_elementor_widget_options_page');
