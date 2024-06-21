@@ -3,7 +3,7 @@
 Plugin Name: Leaflet Elementor Widget
 Plugin URI: https://github.com/Joolace/leaflet-elementor
 Description: Widget Leaflet per Elementor
-Version: 1.2.2       
+Version: 1.2.3         
 Author: Joolace    
 Author URI: https://github.com/Joolace/
 */
@@ -49,24 +49,20 @@ function check_for_leaflet_widget_update() {
     $release_data = json_decode(wp_remote_retrieve_body($response));
     $latest_version = $release_data->tag_name;
 
-
     $current_version = get_option('leaflet_elementor_widget_version');
 
     if (version_compare($current_version, $latest_version, '<')) {
-        $download_url = $release_data->zipball_url;
+        $download_url = $release_data->tarball_url; 
         update_leaflet_elementor_widget($download_url, $latest_version);
     }
 }
 
 function update_leaflet_elementor_widget($download_url, $latest_version) {
-    $temp_file = download_url($download_url);
-    if (is_wp_error($temp_file)) {
-        error_log('Errore durante il download dell\'aggiornamento del plugin Leaflet Elementor: ' . $temp_file->get_error_message());
-        return;
-    }
+    require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
-    require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-    $result = install_plugin_from_zip($temp_file);
+    $skin = new WP_Ajax_Upgrader_Skin();
+    $upgrader = new Plugin_Upgrader($skin);
+    $result = $upgrader->install($download_url);
 
     if (is_wp_error($result)) {
         error_log('Errore durante l\'installazione dell\'aggiornamento del plugin Leaflet Elementor: ' . $result->get_error_message());
@@ -77,11 +73,10 @@ function update_leaflet_elementor_widget($download_url, $latest_version) {
             activate_plugin('leaflet-elementor-widget/leaflet-elementor-widget.php');
         }
     }
-    unlink($temp_file);
 }
 
 function activate_leaflet_elementor_widget() {
-    update_option('leaflet_elementor_widget_version', '1.2.2');
+    update_option('leaflet_elementor_widget_version', '1.2.3');
 }
 
 function leaflet_elementor_widget_settings() {
