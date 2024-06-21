@@ -84,7 +84,7 @@ function update_leaflet_elementor_widget($download_url, $latest_version) {
 }
 
 function activate_leaflet_elementor_widget() {
-    update_option('leaflet_elementor_widget_version', '1.2.5');
+    update_option('leaflet_elementor_widget_version', '1.2.6');
 }
 
 function leaflet_elementor_widget_options_page() {
