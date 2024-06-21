@@ -3,7 +3,7 @@
 Plugin Name: Leaflet Elementor Widget
 Plugin URI: https://github.com/Joolace/leaflet-elementor
 Description: Widget Leaflet per Elementor
-Version: 1.2.1         
+Version: 1.2.5         
 Author: Joolace    
 Author URI: https://github.com/Joolace/
 */
@@ -80,7 +80,7 @@ function update_leaflet_elementor_widget($download_url, $latest_version) {
 }
 
 function activate_leaflet_elementor_widget() {
-    update_option('leaflet_elementor_widget_version', '1.2.1');
+    update_option('leaflet_elementor_widget_version', '1.2.5');
 }
 
 function leaflet_elementor_widget_options_page() {
