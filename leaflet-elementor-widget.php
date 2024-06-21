@@ -3,7 +3,7 @@
 Plugin Name: Leaflet Elementor Widget
 Plugin URI: https://github.com/Joolace/leaflet-elementor
 Description: Widget Leaflet per Elementor
-Version: 1.2.3         
+Version: 1.2.4         
 Author: Joolace    
 Author URI: https://github.com/Joolace/
 */
@@ -52,17 +52,15 @@ function check_for_leaflet_widget_update() {
     $current_version = get_option('leaflet_elementor_widget_version');
 
     if (version_compare($current_version, $latest_version, '<')) {
-        $download_url = $release_data->tarball_url; 
+        $download_url = $release_data->zipball_url; 
         update_leaflet_elementor_widget($download_url, $latest_version);
     }
 }
 
 function update_leaflet_elementor_widget($download_url, $latest_version) {
-    require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+    require_once ABSPATH . 'wp-admin/includes/plugin-install.php'; 
 
-    $skin = new WP_Ajax_Upgrader_Skin();
-    $upgrader = new Plugin_Upgrader($skin);
-    $result = $upgrader->install($download_url);
+    $result = install_plugin_from_zip($download_url);
 
     if (is_wp_error($result)) {
         error_log('Errore durante l\'installazione dell\'aggiornamento del plugin Leaflet Elementor: ' . $result->get_error_message());
@@ -76,7 +74,7 @@ function update_leaflet_elementor_widget($download_url, $latest_version) {
 }
 
 function activate_leaflet_elementor_widget() {
-    update_option('leaflet_elementor_widget_version', '1.2.3');
+    update_option('leaflet_elementor_widget_version', '1.2.4');
 }
 
 function leaflet_elementor_widget_settings() {
