@@ -113,6 +113,12 @@ function leaflet_elementor_widget_settings_page_content() {
     echo '<div class="wrap">';
     echo '<h1>Impostazioni Leaflet Elementor Widget</h1>';
     echo '<form method="post">';
+
+    // Visualizza le impostazioni di aggiornamento automatico
+    settings_fields('leaflet_elementor_widget_update_settings');
+    do_settings_sections('leaflet-elementor-widget-settings');
+
+    // Pulsante di aggiornamento
     echo '<input type="submit" name="update_plugin" class="button button-primary" value="Aggiorna ora">';
     echo '</form>';
     echo '</div>';
@@ -120,10 +126,32 @@ function leaflet_elementor_widget_settings_page_content() {
 
 // Funzione per aggiungere le impostazioni di aggiornamento automatico
 function leaflet_elementor_widget_settings() {
-    // ... (codice per aggiungere l'opzione di aggiornamento automatico)
+    add_settings_section(
+        'leaflet_elementor_widget_update_settings',
+        'Aggiornamento Automatico',
+        'leaflet_elementor_widget_update_settings_callback',
+        'leaflet-elementor-widget-settings' 
+    );
+
+    add_settings_field(
+        'enable_auto_update',
+        'Abilita Aggiornamento Automatico',
+        'enable_auto_update_callback',
+        'leaflet-elementor-widget-settings',
+        'leaflet_elementor_widget_update_settings'
+    );
+
+    register_setting('leaflet_elementor_widget_update_settings', 'enable_auto_update');
 }
 
-// ... (funzioni per l'opzione di aggiornamento automatico)
+function enable_auto_update_callback() {
+    $option = get_option('enable_auto_update');
+    echo '<input type="checkbox" id="enable_auto_update" name="enable_auto_update" value="1" ' . checked(1, $option, false) . ' />';
+}
+
+function leaflet_elementor_widget_update_settings_callback() {
+    echo '<p>Controlla se vuoi abilitare l\'aggiornamento automatico del plugin.</p>';
+}
 
 register_activation_hook(__FILE__, 'activate_leaflet_elementor_widget');
 add_action('admin_init', 'leaflet_elementor_widget_settings');
