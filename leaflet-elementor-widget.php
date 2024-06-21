@@ -34,6 +34,7 @@ function register_leaflet_elementor_widget() {
 }
 add_action( 'elementor/widgets/widgets_registered', 'register_leaflet_elementor_widget' );
 
+
 function check_for_leaflet_widget_update($force_update = false) {
     $response = wp_remote_get('https://api.github.com/repos/Joolace/leaflet-elementor/releases/latest');
 
@@ -50,7 +51,7 @@ function check_for_leaflet_widget_update($force_update = false) {
     if ($force_update || version_compare($current_version, $latest_version, '<')) { 
         $download_url = $release_data->zipball_url;
         update_leaflet_elementor_widget($download_url, $latest_version);
-    }
+    } 
 }
 
 function leaflet_elementor_update_notice() {
@@ -74,21 +75,33 @@ function update_leaflet_elementor_widget($download_url, $latest_version) {
     $upgrader = new Plugin_Upgrader($skin);
     $result = $upgrader->install($download_url);
 
-    if (is_wp_error($result)) { 
+    if (is_wp_error($result)) {
         error_log('Errore durante l\'installazione dell\'aggiornamento del plugin Leaflet Elementor: ' . $result->get_error_message());
-        echo '<div class="notice notice-error"><p>Si \u00e8 verificato un errore durante l\'aggiornamento del plugin.</p></div>';
-    } elseif ( $result['destination_name'] ) { 
-        $activate_result = activate_plugin($result['destination_name']);
+        echo '<div class="notice notice-error"><p>Si è verificato un errore durante l\'aggiornamento del plugin.</p></div>';
+    } else {
+        $plugin_dir = WP_PLUGIN_DIR . '/leaflet-elementor-widget';
+        $extracted_folders = glob(WP_PLUGIN_DIR . '/Joolace-leaflet-elementor-*'); 
+        if (!empty($extracted_folders)) {
+            $extracted_folder_name = basename($extracted_folders[0]); 
 
-        if (is_wp_error($activate_result)) {
-            error_log('Errore durante l\'attivazione del plugin Leaflet Elementor: ' . $activate_result->get_error_message());
-            echo '<div class="notice notice-error"><p>Si \u00e8 verificato un errore durante l\'attivazione del plugin.</p></div>';
-        } else {
+            $old_path = WP_PLUGIN_DIR . '/' . $extracted_folder_name;
+            $new_path = WP_PLUGIN_DIR . '/leaflet-elementor-widget';
+            rename($old_path, $new_path);
+
+            activate_plugin(plugin_basename(__FILE__));
+
             update_option('leaflet_elementor_widget_version', $latest_version);
-            echo '<div class="notice notice-success is-dismissible"><p>Il plugin Leaflet Elementor Widget \u00e8 stato aggiornato alla versione ' . $latest_version . '.</p></div>';
+            echo '<div class="notice notice-success is-dismissible"><p>Il plugin Leaflet Elementor Widget è stato aggiornato alla versione ' . $latest_version . '.</p></div>';
+        } else {
+            error_log('Errore durante l\'aggiornamento: la cartella del plugin non è stata trovata.');
+            echo '<div class="notice notice-error"><p>Si è verificato un errore durante l\'aggiornamento del plugin: la cartella del plugin non è stata trovata.</p></div>';
         }
     }
+
+    remove_action('admin_notices', 'leaflet_elementor_update_notice');
 }
+
+
 
 function activate_leaflet_elementor_widget() {
     update_option('leaflet_elementor_widget_version', '1.2.6');
@@ -129,7 +142,10 @@ function leaflet_elementor_widget_settings_page_content() {
 
     echo '<div class="wrap">';
     echo '<h1>Impostazioni Leaflet Elementor Widget</h1>';
-    echo '<form method="post" action="options.php">'; 
+
+    // Inizio del form
+    echo '<form method="post">'; 
+
     settings_fields('leaflet_elementor_widget_update_settings');
     do_settings_sections('leaflet-elementor-widget-settings');
 
