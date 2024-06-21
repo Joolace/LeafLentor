@@ -3,7 +3,7 @@
 Plugin Name: Leaflet Elementor Widget
 Plugin URI: https://github.com/Joolace/leaflet-elementor
 Description: Widget Leaflet per Elementor
-Version: 1.2.4         
+Version: 1.2.5         
 Author: Joolace    
 Author URI: https://github.com/Joolace/
 */
@@ -74,26 +74,51 @@ function update_leaflet_elementor_widget($download_url, $latest_version) {
 }
 
 function activate_leaflet_elementor_widget() {
-    update_option('leaflet_elementor_widget_version', '1.2.4');
+    update_option('leaflet_elementor_widget_version', '1.2.5');
+}
+
+function leaflet_elementor_widget_options_page() {
+    add_options_page(
+        'Impostazioni Leaflet Elementor Widget', 
+        'Leaflet Elementor Widget', 
+        'manage_options', 
+        'leaflet-elementor-widget-settings', 
+        'leaflet_elementor_widget_settings_page_content' 
+    );
+}
+
+function leaflet_elementor_widget_settings_page_content() {
+    ?>
+    <div class="wrap">
+        <h1>Impostazioni Leaflet Elementor Widget</h1>
+        <form method="post" action="options.php">
+            <?php
+            settings_fields('leaflet_elementor_widget_update_settings');
+            do_settings_sections('leaflet-elementor-widget-settings');
+            submit_button();
+            ?>
+        </form>
+    </div>
+    <?php
 }
 
 function leaflet_elementor_widget_settings() {
     add_settings_section(
         'leaflet_elementor_widget_update_settings',
-        'Impostazioni Aggiornamento Automatico',
+        'Aggiornamento Automatico',
         'leaflet_elementor_widget_update_settings_callback',
-        'reading'
+        'leaflet-elementor-widget-settings' 
     );
 
     add_settings_field(
         'enable_auto_update',
         'Abilita Aggiornamento Automatico',
         'enable_auto_update_callback',
-        'reading',
+        'leaflet-elementor-widget-settings',
         'leaflet_elementor_widget_update_settings'
     );
 
-    register_setting('reading', 'enable_auto_update');
+    register_setting('leaflet_elementor_widget_update_settings', 'enable_auto_update');
 }
 
 function enable_auto_update_callback() {
@@ -108,3 +133,4 @@ function leaflet_elementor_widget_update_settings_callback() {
 register_activation_hook(__FILE__, 'activate_leaflet_elementor_widget');
 add_action('admin_init', 'leaflet_elementor_widget_settings');
 add_action('admin_init', 'check_for_leaflet_widget_update');
+add_action('admin_menu', 'leaflet_elementor_widget_options_page');
