@@ -102,14 +102,35 @@ function leaflet_elementor_widget_settings_page_content() {
         check_for_leaflet_widget_update(true); 
     }
 
+    if (isset($_POST['save_settings'])) {
+        update_option('enable_auto_update', isset($_POST['enable_auto_update']) ? 1 : 0);
+        echo '<div class="notice notice-success is-dismissible"><p>Impostazioni salvate.</p></div>';
+    }
+
+    $current_version = get_option('leaflet_elementor_widget_version');
+    $response = wp_remote_get('https://api.github.com/repos/Joolace/leaflet-elementor/releases/latest');
+    $show_update_button = false; 
+
+    if (!is_wp_error($response)) {
+        $release_data = json_decode(wp_remote_retrieve_body($response));
+        $latest_version = $release_data->tag_name;
+        if (version_compare($current_version, $latest_version, '<')) {
+            echo '<div class="notice notice-warning is-dismissible"><p>È disponibile una nuova versione del plugin Leaflet Elementor Widget (' . $latest_version . ').</p></div>';
+            $show_update_button = true;
+        }
+    }
+
     echo '<div class="wrap">';
     echo '<h1>Impostazioni Leaflet Elementor Widget</h1>';
-    echo '<form method="post" action="options.php">';
-
+    echo '<form method="post" action="options.php">'; 
     settings_fields('leaflet_elementor_widget_update_settings');
     do_settings_sections('leaflet-elementor-widget-settings');
 
-    echo '<input type="submit" name="update_plugin" class="button button-primary" value="Aggiorna ora">';
+    if ($show_update_button) {
+        echo '<input type="submit" name="update_plugin" class="button button-primary" value="Aggiorna ora">';
+    }
+
+    echo '<input type="submit" name="save_settings" class="button button-primary" value="Salva modifiche">';
     echo '</form>';
     echo '</div>';
 }
