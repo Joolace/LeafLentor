@@ -3,7 +3,7 @@
 Plugin Name: Leaflet Elementor Widget
 Plugin URI: https://github.com/Joolace/leaflet-elementor
 Description: Widget Leaflet per Elementor
-Version: 1.2.6         
+Version: 1.2.1         
 Author: Joolace    
 Author URI: https://github.com/Joolace/
 */
@@ -35,7 +35,7 @@ function register_leaflet_elementor_widget() {
 add_action( 'elementor/widgets/widgets_registered', 'register_leaflet_elementor_widget' );
 
 // Funzione per controllare e installare gli aggiornamenti
-function check_for_leaflet_widget_update($force_update = false) {
+function check_for_leaflet_widget_update() {
     // 1. Ottenere l'ultima versione da GitHub
     $response = wp_remote_get('https://api.github.com/repos/Joolace/leaflet-elementor/releases/latest');
 
@@ -51,10 +51,23 @@ function check_for_leaflet_widget_update($force_update = false) {
     // 2. Confrontare le versioni
     $current_version = get_option('leaflet_elementor_widget_version');
 
-    if ($force_update || version_compare($current_version, $latest_version, '<')) {
-        // 3. Scaricare e installare l'aggiornamento
-        $download_url = $release_data->zipball_url;
-        update_leaflet_elementor_widget($download_url, $latest_version);
+    if (version_compare($current_version, $latest_version, '<')) {
+        add_action( 'admin_notices', 'leaflet_elementor_update_notice' );
+    }
+}
+
+// Funzione per visualizzare la notifica di aggiornamento
+function leaflet_elementor_update_notice() {
+    $response = wp_remote_get('https://api.github.com/repos/Joolace/leaflet-elementor/releases/latest');
+    if (!is_wp_error($response)) {
+        $release_data = json_decode(wp_remote_retrieve_body($response));
+        $latest_version = $release_data->tag_name;
+        ?>
+        <div class="notice notice-warning is-dismissible">
+            <p>È disponibile una nuova versione del plugin Leaflet Elementor Widget (<?php echo $latest_version; ?>). 
+            <a href="<?php echo admin_url('options-general.php?page=leaflet-elementor-widget-settings'); ?>" class="button button-primary">Aggiorna ora</a></p>
+        </div>
+        <?php
     }
 }
 
@@ -77,7 +90,7 @@ function update_leaflet_elementor_widget($download_url, $latest_version) {
 
 // Funzione per attivare il plugin e impostare la versione iniziale
 function activate_leaflet_elementor_widget() {
-    update_option('leaflet_elementor_widget_version', '1.2.6');
+    update_option('leaflet_elementor_widget_version', '1.2.1');
 }
 
 // Funzione per aggiungere la pagina delle impostazioni
@@ -97,50 +110,20 @@ function leaflet_elementor_widget_settings_page_content() {
         check_for_leaflet_widget_update(true); // Forza il controllo degli aggiornamenti
     }
 
-    $current_version = get_option('leaflet_elementor_widget_version');
-    $response = wp_remote_get('https://api.github.com/repos/Joolace/leaflet-elementor/releases/latest');
-    if (!is_wp_error($response)) {
-        $release_data = json_decode(wp_remote_retrieve_body($response));
-        $latest_version = $release_data->tag_name;
-        if (version_compare($current_version, $latest_version, '<')) {
-            echo '<div class="notice notice-warning is-dismissible"><p>È disponibile una nuova versione del plugin Leaflet Elementor Widget (' . $latest_version . '). <form method="post"><input type="submit" name="update_plugin" class="button button-primary" value="Aggiorna ora"></form></p></div>';
-        }
-    }
-
     echo '<div class="wrap">';
     echo '<h1>Impostazioni Leaflet Elementor Widget</h1>';
-    // ... (qui puoi aggiungere altre opzioni per il tuo plugin)
+    echo '<form method="post">';
+    echo '<input type="submit" name="update_plugin" class="button button-primary" value="Aggiorna ora">';
+    echo '</form>';
     echo '</div>';
 }
 
 // Funzione per aggiungere le impostazioni di aggiornamento automatico
 function leaflet_elementor_widget_settings() {
-    add_settings_section(
-        'leaflet_elementor_widget_update_settings',
-        'Aggiornamento Automatico',
-        'leaflet_elementor_widget_update_settings_callback',
-        'leaflet-elementor-widget-settings' 
-    );
-
-    add_settings_field(
-        'enable_auto_update',
-        'Abilita Aggiornamento Automatico',
-        'enable_auto_update_callback',
-        'leaflet-elementor-widget-settings',
-        'leaflet_elementor_widget_update_settings'
-    );
-
-    register_setting('leaflet_elementor_widget_update_settings', 'enable_auto_update');
+    // ... (codice per aggiungere l'opzione di aggiornamento automatico)
 }
 
-function enable_auto_update_callback() {
-    $option = get_option('enable_auto_update');
-    echo '<input type="checkbox" id="enable_auto_update" name="enable_auto_update" value="1" ' . checked(1, $option, false) . ' />';
-}
-
-function leaflet_elementor_widget_update_settings_callback() {
-    echo '<p>Controlla se vuoi abilitare l\'aggiornamento automatico del plugin.</p>';
-}
+// ... (funzioni per l'opzione di aggiornamento automatico)
 
 register_activation_hook(__FILE__, 'activate_leaflet_elementor_widget');
 add_action('admin_init', 'leaflet_elementor_widget_settings');
