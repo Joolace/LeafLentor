@@ -64,15 +64,19 @@ function check_for_leaflet_widget_update() {
 }
 
 function update_leaflet_elementor_widget($download_url, $latest_version) {
-    require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+    require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
-    $result = install_plugin_from_zip($download_url);
+    $skin = new WP_Ajax_Upgrader_Skin();
+    $upgrader = new Plugin_Upgrader($skin);
+    $result = $upgrader->install($download_url);
 
     if (is_wp_error($result)) {
         error_log('Errore durante l\'installazione dell\'aggiornamento del plugin Leaflet Elementor: ' . $result->get_error_message());
     } else {
+        // Aggiorna la versione del plugin nel database
         update_option('leaflet_elementor_widget_version', $latest_version);
 
+        // Attiva il plugin se non è già attivo (correggi il percorso)
         if (!is_plugin_active(plugin_basename(__FILE__))) {
             activate_plugin(plugin_basename(__FILE__));
         }
