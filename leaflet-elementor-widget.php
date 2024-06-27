@@ -3,7 +3,7 @@
 Plugin Name: Leaflet Elementor Widget
 Plugin URI: https://github.com/Joolace/leaflet-elementor
 Description: Widget Leaflet per Elementor
-Version: 1.2.6         
+Version: 1.2.7         
 Author: Joolace    
 Author URI: https://github.com/Joolace/
 */
