@@ -480,7 +480,7 @@ class MultiMarker_Elementor_Widget extends \Elementor\Widget_Base
                     });
 
                     L.marker([' . $latitude . ', ' . $longitude . '], { icon: customIcon }).addTo(map)
-                        .bindPopup("' . addslashes($popup_content) . '");
+                        .bindPopup("' . str_replace(array("\r\n", "\r", "\n"), "<br>", addslashes($popup_content)) . '");
                     ';
                 }
             }

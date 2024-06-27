@@ -448,7 +448,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         }).addTo(map);
     
         L.marker([' . $latitude . ', ' . $longitude . ']).addTo(map)
-            .bindPopup("' . addslashes($popup_content) . '", { autoClose: false });
+            .bindPopup("' . str_replace(array("\r\n", "\r", "\n"), "<br>", addslashes($popup_content)) . '", { autoClose: false });
             ';
 
             if ($enable_fullscreen == 'yes') {
