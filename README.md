@@ -6,7 +6,8 @@ Leaflet Map Widgets for Elementor provides three Elementor widgets to easily int
 
 ## License
 
-This plugin is licensed under the GPLv2 (or later) license.
+License: GPLv2 (or later)
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 ## Features
 
