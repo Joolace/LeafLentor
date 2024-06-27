@@ -4,6 +4,10 @@
 
 Leaflet Map Widgets for Elementor provides three Elementor widgets to easily integrate interactive maps into your website.
 
+## License
+
+This plugin is licensed under the GPLv2 (or later) license.
+
 ## Features
 
 * **Three Elementor Widgets:**
