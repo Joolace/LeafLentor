@@ -7,7 +7,7 @@
     "version": "1.2.6",
     "download_url": "https://github.com/Joolace/leaflet-elementor/releases/download/1.2.6/leaflet-elementor-widget.zip",
     "requires": "6.3",
-    "tested": "6.5.4",
+    "tested": "6.5.5",
     "requires_php": "8.0",
     "added": "2024-06-20 00:00:00",
     "last_updated": "2024-06-21 09:30:00",
