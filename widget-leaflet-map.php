@@ -422,7 +422,7 @@ class Leaflet_Map_Widget extends Widget_Base
         var map = L.map('<?php echo esc_js($this->map_id); ?>').setView([51.505, -0.09], 13);
         var waypoints = [];
 
-        L.tileLayer(<?php echo json_encode(esc_url_raw($tiles_url)); ?>, {
+        L.tileLayer(<?php echo json_encode($tiles_url); ?>, {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
