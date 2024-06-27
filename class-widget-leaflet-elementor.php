@@ -415,39 +415,39 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
 
             echo '<style>
     @media (max-width: 767px) {
-        #' . $this->map_id . ' {
-            height: ' . $height_mobile . $height_unit . ' !important;
+        #' . esc_attr($this->map_id). ' {
+            height: ' . esc_attr($height_mobile) . esc_attr($height_unit) . ' !important;
         }
     }
     
     @media (min-width: 768px) and (max-width: 1024px) {
-        #' . $this->map_id . ' {
-            height: ' . $height_tablet . $height_unit . ' !important;
+        #' . esc_attr($this->map_id) . ' {
+            height: ' . esc_attr($height_tablet) . esc_attr($height_unit) . ' !important;
         }
     }
     
     @media (min-width: 1024px) and (max-width: 1200px) {
-        #' . $this->map_id . ' {
-            height: ' . $height_tablet_horizontal . $height_unit . ' !important; 
+        #' . esc_attr($this->map_id) . ' {
+            height: ' . esc_attr($height_tablet_horizontal) . esc_attr($height_unit) . ' !important; 
         }
     }
     
     @media (min-width: 1200px) and (max-width: 1366px) {
-        #' . $this->map_id . ' {
-            height: ' . $height_laptop . $height_unit . ' !important; 
+        #' . esc_attr($this->map_id) . ' {
+            height: ' . esc_attr($height_laptop) . esc_attr($height_unit) . ' !important; 
         }
     }
     </style>';
 
-            echo '<div id="' . $this->map_id . '" class="leaflet-map" style="height: ' . $height . $height_unit . '; width: ' . $width . $width_unit . '; ' . $border_style_string . '"></div>';
+            echo '<div id="' . esc_attr($this->map_id) . '" class="leaflet-map" style="height: ' . esc_attr($height) . esc_attr($height_unit) . '; width: ' . esc_attr($width) . esc_attr($width_unit) . '; ' . esc_attr($border_style_string) . '"></div>';
             echo '<script>
     jQuery(document).ready(function($) {
-        var map = L.map("' . $this->map_id . '").setView([' . $latitude . ', ' . $longitude . '], ' . $zoom . ');
+        var map = L.map("' . esc_js($this->map_id) . '").setView([' . esc_js($latitude) . ', ' . esc_js($longitude) . '], ' . esc_js($zoom) . ');
         L.tileLayer("' . $tiles_url . '", {
             attribution: "' . $attribution_text . '"
         }).addTo(map);
     
-        L.marker([' . $latitude . ', ' . $longitude . ']).addTo(map)
+        L.marker([' . esc_js($latitude) . ', ' . esc_js($longitude) . ']).addTo(map)
             .bindPopup("' . str_replace(array("\r\n", "\r", "\n"), "<br>", addslashes($popup_content)) . '", { autoClose: false });
             ';
 

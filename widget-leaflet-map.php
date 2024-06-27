@@ -392,37 +392,37 @@ class Leaflet_Map_Widget extends Widget_Base
 ?>
 <style>
     @media (max-width: 767px) {
-        #<?php echo $this->map_id; ?> {
-            height: <?php echo $map_height_mobile . $map_height_unit; ?> !important;
+        #<?php echo esc_attr($this->map_id); ?> {
+            height: <?php echo esc_attr($map_height_mobile) . esc_attr($map_height_unit); ?> !important;
         }
     }
 
     @media (min-width: 768px) and (max-width: 1024px) {
-        #<?php echo $this->map_id; ?> {
-            height: <?php echo $map_height_tablet . $map_height_unit; ?> !important;
+        #<?php echo esc_attr($this->map_id); ?> {
+            height: <?php echo esc_attr($map_height_tablet) . esc_attr($map_height_unit); ?> !important;
         }
     }
 
     @media (min-width: 1024px) and (max-width: 1200px) {
-        #<?php echo $this->map_id; ?> {
-            height: <?php echo $map_height_tablet_horizontal . $map_height_unit; ?> !important; 
+        #<?php echo esc_attr($this->map_id); ?> {
+            height: <?php echo esc_attr($map_height_tablet_horizontal) . esc_attr($map_height_unit); ?> !important; 
         }
     }
 
     @media (min-width: 1200px) and (max-width: 1366px) {
-        #<?php echo $this->map_id; ?> {
-            height: <?php echo $map_height_laptop . $map_height_unit; ?> !important; 
+        #<?php echo esc_attr($this->map_id); ?> {
+            height: <?php echo esc_attr($map_height_laptop) . esc_attr($map_height_unit); ?> !important; 
         }
     }
 </style>
 
-<div id="<?php echo esc_attr($this->map_id); ?>" style="width: <?php echo esc_attr($map_width) . $map_width_unit; ?>; height: <?php echo esc_attr($map_height) . $map_height_unit; ?>;"></div>
+<div id="<?php echo esc_attr($this->map_id); ?>" style="width: <?php echo esc_attr($map_width) . esc_attr($map_width_unit); ?>; height: <?php echo esc_attr($map_height) . esc_attr($map_height_unit); ?>;"></div>
 <script>
     jQuery(document).ready(function($) {
         var map = L.map('<?php echo esc_js($this->map_id); ?>').setView([51.505, -0.09], 13);
         var waypoints = [];
 
-        L.tileLayer(<?php echo json_encode($tiles_url); ?>, {
+        L.tileLayer(<?php echo json_encode(esc_url_raw($tiles_url)); ?>, {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
@@ -476,9 +476,9 @@ class Leaflet_Map_Widget extends Widget_Base
                 },
                 lineOptions: {
                     styles: [{
-                        color: '<?php echo $line_color; ?>',
-                        opacity: <?php echo $line_opacity; ?>,
-                        weight: <?php echo $line_weight; ?>
+                        color: '<?php echo esc_attr($line_color); ?>',
+                        opacity: <?php echo esc_attr($line_opacity); ?>,
+                        weight: <?php echo esc_attr($line_weight); ?>
                     }]
                 },
                 language: 'it'
