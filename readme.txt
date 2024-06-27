@@ -4,11 +4,11 @@
 
 Leaflet Map Widgets for Elementor provides three Elementor widgets to easily integrate interactive maps into your website.
 
-## License
+=== License ===
+License: GPLv2 (or later)
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin is licensed under the GPLv2 (or later) license.
-
-## Features
+=== Features ===
 
 * **Three Elementor Widgets:**
     * **Leaflet Map:** Easily embed a Leaflet map.
@@ -17,21 +17,21 @@ This plugin is licensed under the GPLv2 (or later) license.
 * **Fullscreen Mode:** View the map in fullscreen.
 * **Customizable:** Tailor the map's appearance to your website.
 
-## Installation
+=== Installation ===
 
 1. Download the latest release or clone this repository.
 2. Upload the ZIP file in your WordPress dashboard under Plugins > Add New.
 3. Activate the plugin.
 4. Find the widgets in the Elementor editor.
 
-## Usage
+=== Usage ===
 
 1. Drag and drop the Leaflet Map widget.
 2. Configure the map settings.
 3. Add markers with the Leaflet Marker widget.
 4. Enable routing (optional) with the Leaflet Routing widget.
 
-## Dependencies
+=== Dependencies ===
 
 This plugin relies on the following libraries:
 
@@ -39,13 +39,13 @@ This plugin relies on the following libraries:
 * Leaflet Routing Machine
 * Fullscreen.js
 
-## Support & Contributions
+=== Support & Contributions ===
 
 * **Leave a review:** Your feedback is appreciated.
 * **Report issues:** Open an issue on GitHub.
 * **Contribute:** Submit pull requests with improvements.
 
-## Need Help?
+=== Need Help? ===
 
 I'm actively developing this plugin. Feel free to reach out for assistance or feature requests.
 
