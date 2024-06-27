@@ -1,12 +1,26 @@
 <?php
-/*
-Plugin Name: Leaflet Elementor Widget
-Plugin URI: https://github.com/Joolace/leaflet-elementor
-Description: Widget Leaflet per Elementor
-Version: 1.2.7         
-Author: Joolace    
-Author URI: https://github.com/Joolace/
-*/
+/**
+ * Plugin Name: Leaflet Elementor Widget
+ * Plugin URI: https://github.com/Joolace/leaflet-elementor
+ * Description: Widget Leaflet for Elementor
+ * Author: joolace
+ * Author URI: https://github.com/Joolace/
+ * Text Domain: leaflet-elementor-widget
+ * Version: 1.2.7
+ * License: GPL2
+ * Leaflet Elementor Widget is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * Leaflet Elementor Widget is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Leaflet Elementor Widget. If not, see  https://github.com/Joolace/leaflet-elementor/blob/main/LICENSE.
+ */
 
 function load_leaflet_elementor_widget_scripts() {
     wp_enqueue_style('leaflet-css', 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css');
