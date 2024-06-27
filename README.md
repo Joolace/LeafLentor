@@ -2,43 +2,47 @@
 
 [![License](https://img.shields.io/badge/license-GPLv2%2B-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
-This WordPress plugin provides three powerful Elementor widgets to seamlessly integrate Leaflet maps into your website. Create interactive maps, add custom markers, and even implement routing functionality with ease.
+Leaflet Map Widgets for Elementor provides three Elementor widgets to easily integrate interactive maps into your website.
 
 ## Features
 
 * **Three Elementor Widgets:**
-    * **Leaflet Map:**  Easily embed a Leaflet map with customizable settings.
-    * **Leaflet Marker:** Add markers to your map with custom icons and popups.
-    * **Leaflet Routing:** Enable routing functionality using Leaflet Routing Machine.
-* **Fullscreen Mode:**  Utilize Fullscreen.js to allow users to view the map in fullscreen.
-* **Customizable:**  Adjust the appearance and behavior of your maps to match your website's design.
+    * **Leaflet Map:** Easily embed a Leaflet map.
+    * **Leaflet Marker:** Add custom markers to your map.
+    * **Leaflet Routing:** Enable routing functionality.
+* **Fullscreen Mode:** View the map in fullscreen.
+* **Customizable:** Tailor the map's appearance to your website.
 
 ## Installation
 
-1. **Download:** Get the latest version of the plugin from the [Releases](https://github.com/Joolace/leaflet-elementor/releases) or clone this repository.
-2. **Upload:** In your WordPress dashboard, go to Plugins > Add New and upload the plugin ZIP file.
-3. **Activate:** Activate the plugin through the 'Plugins' menu in WordPress.
-4. **Elementor:** You'll find the new Leaflet Map widgets in the Elementor editor.
+1. Download the latest release or clone this repository.
+2. Upload the ZIP file in your WordPress dashboard under Plugins > Add New.
+3. Activate the plugin.
+4. Find the widgets in the Elementor editor.
 
 ## Usage
 
-1. **Drag and Drop:** Add the Leaflet Map widget to your Elementor page or post.
-2. **Configure:** Customize the map settings (initial location, zoom level, etc.).
-3. **Add Markers:** Use the Leaflet Marker widget to add markers to your map.
-4. **Enable Routing (Optional):** If desired, add the Leaflet Routing widget and configure the routing options.
+1. Drag and drop the Leaflet Map widget.
+2. Configure the map settings.
+3. Add markers with the Leaflet Marker widget.
+4. Enable routing (optional) with the Leaflet Routing widget.
+
+## Dependencies
+
+This plugin relies on the following libraries:
+
+* Leaflet
+* Leaflet Routing Machine
+* Fullscreen.js
 
 ## Support & Contributions
 
-Love this plugin? Here's how you can help:
-
-* **Leave a review:**  Your positive reviews on the WordPress Plugin Repository are greatly appreciated.
-* **Report issues:** If you encounter any problems, please open an issue on GitHub.
-* **Contribute:** Feel free to fork this repository and submit pull requests with improvements.
+* **Leave a review:** Your feedback is appreciated.
+* **Report issues:** Open an issue on GitHub.
+* **Contribute:** Submit pull requests with improvements.
 
 ## Need Help?
 
-I'm actively developing and improving this plugin. If you need assistance or have feature requests, please reach out!
+I'm actively developing this plugin. Feel free to reach out for assistance or feature requests.
 
-Your support helps me dedicate more time to this project.
-
-NOTE: It's the first wordpress plugin I've made, I'm still a beginner, I'm not yet very expert in php and js. I uploaded this plugin to GitHub to get some help from the community.
+NOTE: This is my first WordPress plugin. I'm still learning PHP and JavaScript and welcome help from the community.
