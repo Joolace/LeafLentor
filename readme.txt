@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: postmortem98
-Donate link: https://example.com/
+Donate link: https://www.paypal.com/donate/?hosted_button_id=4VE33B9W75L4S
 Tags: leaflet, map, mobile, javascript, openstreetmap, elementor, addon
 Requires at least: 4.7
 Tested up to: 6.5.5

@@ -51,3 +51,7 @@ This plugin relies on the following libraries:
 I'm actively developing this plugin. Feel free to reach out for assistance or feature requests.
 
 NOTE: This is my first WordPress plugin. I'm still learning PHP and JavaScript and welcome help from the community.
+
+## Donate
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=4VE33B9W75L4S)
