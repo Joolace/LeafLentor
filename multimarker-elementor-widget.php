@@ -44,6 +44,102 @@ class MultiMarker_Elementor_Widget extends \Elementor\Widget_Base
             ]
         );
 
+        $this->add_control(
+            'use_geojson',
+            [
+                'label' => __('Use GeoJSON', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'multi-marker-elementor-widget'),
+                'label_off' => __('No', 'multi-marker-elementor-widget'),
+                'return_value' => 'yes',
+                'default' => 'no',
+                'description' => __('NOTE: If "Use GeoJSON" is active the multimarkers will be disabled.', 'multi-marker-elementor-widget'),
+            ]
+        );
+        
+        $this->add_control(
+            'geojson_data',
+            [
+                'label' => __('GeoJSON Data', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXTAREA,
+                'default' => '',
+                'condition' => [
+                    'use_geojson' => 'yes',
+                ],
+            ]
+        ); 
+        
+        $this->add_control(
+            'marker_color',
+            [
+                'label' => __('Marker Color', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'default' => '#3388ff',
+                'label_block' => true,
+                'condition' => [
+                    'use_geojson' => 'yes',
+                ],
+            ]
+        );
+        
+        $this->add_control(
+            'geojson_marker_color',
+            [
+                'label' => __('GeoJSON Marker Color', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'default' => '#3388ff',
+                'condition' => [
+                    'use_geojson' => 'yes',
+                ],
+            ]
+        );
+        
+        $this->add_control(
+            'geojson_polygon_color',
+            [
+                'label' => __('GeoJSON Polygon Color', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'default' => '#3388ff',
+                'condition' => [
+                    'use_geojson' => 'yes',
+                ],
+            ]
+        );
+        
+        $this->add_control(
+            'geojson_line_color',
+            [
+                'label' => __('GeoJSON Line Color', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'default' => '#3388ff',
+                'condition' => [
+                    'use_geojson' => 'yes',
+                ],
+            ]
+        );   
+        
+        $this->add_control(
+            'center_latitude',
+            [
+                'label' => __('Center Latitude', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => '',
+                'label_block' => true,
+                'description' => __('Enter the latitude of the center point for the map.', 'multi-marker-elementor-widget'),
+            ]
+        );
+    
+        $this->add_control(
+            'center_longitude',
+            [
+                'label' => __('Center Longitude', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'default' => '',
+                'label_block' => true,
+                'description' => __('Enter the longitude of the center point for the map.', 'multi-marker-elementor-widget'),
+            ]
+        );
+
         $repeater = new \Elementor\Repeater();
 
         $repeater->add_control(
@@ -374,9 +470,7 @@ class MultiMarker_Elementor_Widget extends \Elementor\Widget_Base
         $this->end_controls_section();
 
     }
-
-    protected function render()
-    {
+    protected function render() {
         $settings = $this->get_settings_for_display();
         $markers = $settings['markers'];
         $desktop_height = $settings['desktop_height'];
@@ -393,6 +487,13 @@ class MultiMarker_Elementor_Widget extends \Elementor\Widget_Base
         $mobile_width_unit = $settings['mobile_width_unit'];
         $tiles_provider = $settings['tiles_provider'];
         $map_zoom = $settings['map_zoom'];
+        $use_geojson = $settings['use_geojson'];
+        $geojson_data = $settings['geojson_data'];
+        $geojson_marker_color = $settings['geojson_marker_color'];
+        $geojson_polygon_color = $settings['geojson_polygon_color'];
+        $geojson_line_color = $settings['geojson_line_color'];
+        $center_latitude = $settings['center_latitude'];
+        $center_longitude = $settings['center_longitude'];
         $media_query = "
             @media screen and (max-width: 768px) {
                 #{$this->map_id} {
@@ -445,46 +546,75 @@ class MultiMarker_Elementor_Widget extends \Elementor\Widget_Base
                 break;
         }
 
-        if (!empty($markers)) {
+        if (!empty($markers) || ($use_geojson === 'yes' && !empty($geojson_data))) {
             echo '<style>' . $media_query . '</style>';
             echo '<div id="' . $this->map_id . '" class="leaflet-map"></div>';
             echo '<script>
             jQuery(document).ready(function($) {
-                var map = L.map("' . $this->map_id . '").setView([' . $markers[0]['latitude'] . ', ' . $markers[0]['longitude'] . '], ' . $map_zoom . ');
+                var map = L.map("' . $this->map_id . '").setView([' . ($center_latitude ? $center_latitude : $markers[0]['latitude']) . ', ' . ($center_longitude ? $center_longitude : $markers[0]['longitude']) . '], ' . $map_zoom . ');
                 L.tileLayer("' . $tiles_url . '", {
                     attribution: "© OpenStreetMap contributors"
-                }).addTo(map);';
-                echo 'L.control.fullscreen({
+                }).addTo(map);
+                L.control.fullscreen({
                     position: "topleft"
                 }).addTo(map);';
-                
-
-            foreach ($markers as $marker) {
-                $latitude = $marker['latitude'];
-                $longitude = $marker['longitude'];
-                $popup_content = $marker['popup_content'];
-                $icon_url = $marker['marker_icon']['url'];
-                $icon_size_horizontal = $marker['marker_icon_size_horizontal'];
-                $icon_size_vertical = $marker['marker_icon_size_vertical'];
-                $icon_horizontal_anchor = $marker['marker_icon_horizontal_anchor'];
-                $icon_vertical_anchor = $marker['marker_icon_vertical_anchor'];
-                $popup_horizontal_anchor = $marker['marker_popup_horizontal_anchor'];
-                $popup_vertical_anchor = $marker['marker_popup_vertical_anchor'];
-
-                if (is_numeric($latitude) && is_numeric($longitude)) {
-                    echo 'var customIcon = L.icon({
-                        iconUrl: "' . $icon_url . '",
-                        iconSize: [' . $icon_size_horizontal . ', ' . $icon_size_vertical . '],
-                        iconAnchor: [' . $icon_horizontal_anchor . ', ' . $icon_vertical_anchor . '],
-                        popupAnchor: [' . $popup_horizontal_anchor . ', ' . $popup_vertical_anchor . ']
-                    });
-
-                    L.marker([' . $latitude . ', ' . $longitude . '], { icon: customIcon }).addTo(map)
-                        .bindPopup("' . str_replace(array("\r\n", "\r", "\n"), "<br>", addslashes($popup_content)) . '", { autoClose: false });
-                    ';
+        
+            if ($use_geojson === 'yes' && !empty($geojson_data)) {
+                echo 'var geojsonLayer = L.geoJSON(' . $geojson_data . ', {
+                    style: function(feature) {
+                        switch (feature.geometry.type) {
+                            case "Polygon":
+                            case "MultiPolygon":
+                                return {color: "' . $geojson_polygon_color . '"};
+                            case "LineString":
+                            case "MultiLineString":
+                                return {color: "' . $geojson_line_color . '"};
+                            default:
+                                return {};
+                        }
+                    },
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, {
+                            radius: 8,
+                            fillColor: "' . $geojson_marker_color . '",
+                            color: "#000",
+                            weight: 1,
+                            opacity: 1,
+                            fillOpacity: 0.8
+                        });
+                    }
+                }).addTo(map);';
+            } else {
+                foreach ($markers as $marker) {
+                    $latitude = $marker['latitude'];
+                    $longitude = $marker['longitude'];
+                    $popup_content = $marker['popup_content'];
+                    $icon_url = $marker['marker_icon']['url'];
+                    $icon_size_horizontal = $marker['marker_icon_size_horizontal'];
+                    $icon_size_vertical = $marker['marker_icon_size_vertical'];
+                    $icon_horizontal_anchor = $marker['marker_icon_horizontal_anchor'];
+                    $icon_vertical_anchor = $marker['marker_icon_vertical_anchor'];
+                    $popup_horizontal_anchor = $marker['marker_popup_horizontal_anchor'];
+                    $popup_vertical_anchor = $marker['marker_popup_vertical_anchor'];
+                    $marker_color = $marker['marker_color'];
+        
+                    if (is_numeric($latitude) && is_numeric($longitude)) {
+                        echo 'var customIcon = L.icon({
+                            iconUrl: "' . $icon_url . '",
+                            iconSize: [' . $icon_size_horizontal . ', ' . $icon_size_vertical . '],
+                            iconAnchor: [' . $icon_horizontal_anchor . ', ' . $icon_vertical_anchor . '],
+                            popupAnchor: [' . $popup_horizontal_anchor . ', ' . $popup_vertical_anchor . ']
+                        });
+        
+                        var marker = L.marker([' . $latitude . ', ' . $longitude . '], { icon: customIcon }).addTo(map)
+                            .bindPopup("' . str_replace(array("\r\n", "\r", "\n"), "<br>", addslashes($popup_content)) . '", { autoClose: false });
+                        
+                        marker._icon.style.filter = "hue-rotate(' . $marker_color . ')";
+                        ';
+                    }
                 }
             }
-
+        
             echo '});
             </script>';
         } else {

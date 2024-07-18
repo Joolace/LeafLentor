@@ -39,7 +39,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'coordinates_section',
             [
-                'label' => __('Coordinate', 'leaflet-elementor-widget'),
+                'label' => __('Coordinates', 'leaflet-elementor-widget'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -75,7 +75,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'popup_content_section',
             [
-                'label' => __('Contenuto Popup', 'leaflet-elementor-widget'),
+                'label' => __('Popup Content', 'leaflet-elementor-widget'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -98,7 +98,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'other_settings_section',
             [
-                'label' => __('Altre Impostazioni', 'leaflet-elementor-widget'),
+                'label' => __('Other Settings', 'leaflet-elementor-widget'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
