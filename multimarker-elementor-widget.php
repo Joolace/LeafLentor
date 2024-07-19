@@ -277,7 +277,17 @@ class MultiMarker_Elementor_Widget extends \Elementor\Widget_Base
                 'default' => 13,
                 'min' => 1,
                 'max' => 18,
-                'label_block' => true,
+            ]
+        );
+
+        $this->add_control(
+            'min_zoom',
+            [
+                'label' => __('Min Zoom', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'default' => 3,
+                'min' => 1,
+                'max' => 18,
             ]
         );
 
@@ -466,6 +476,57 @@ class MultiMarker_Elementor_Widget extends \Elementor\Widget_Base
                 ],
             ]
         );
+        
+        $this->add_control(
+            'use_custom_tiles',
+            [
+                'label' => __('Use Custom Tiles', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'multi-marker-elementor-widget'),
+                'label_off' => __('No', 'multi-marker-elementor-widget'),
+                'return_value' => 'yes',
+                'default' => '',
+            ]
+        );
+    
+        $this->add_control(
+            'custom_tiles_url',
+            [
+                'label' => __('Custom Tiles URL', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'use_custom_tiles' => 'yes',
+                ],
+                'default' => '',
+                'placeholder' => __('Enter tile URL...', 'multi-marker-elementor-widget'),
+            ]
+        );
+    
+        $this->add_control(
+            'custom_tiles_token',
+            [
+                'label' => __('Custom Tiles Token (if needed)', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'use_custom_tiles' => 'yes',
+                ],
+                'default' => '',
+                'placeholder' => __('Enter token...', 'multi-marker-elementor-widget'),
+            ]
+        );
+    
+        $this->add_control(
+            'custom_tiles_extension',
+            [
+                'label' => __('Custom Tiles Extension', 'multi-marker-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'use_custom_tiles' => 'yes',
+                ],
+                'default' => 'png',
+                'placeholder' => __('Enter file extension (e.g., png, jpg)...', 'multi-marker-elementor-widget'),
+            ]
+        );
 
         $this->end_controls_section();
 
@@ -494,6 +555,11 @@ class MultiMarker_Elementor_Widget extends \Elementor\Widget_Base
         $geojson_line_color = $settings['geojson_line_color'];
         $center_latitude = $settings['center_latitude'];
         $center_longitude = $settings['center_longitude'];
+        $use_custom_tiles = $settings['use_custom_tiles'];
+        $custom_tiles_token = $settings['custom_tiles_token'];
+        $custom_tiles_extension = $settings['custom_tiles_extension'];
+        $custom_tiles_url = $settings['custom_tiles_url'];
+        $min_zoom = $settings['min_zoom'];
         $media_query = "
             @media screen and (max-width: 768px) {
                 #{$this->map_id} {
@@ -515,35 +581,39 @@ class MultiMarker_Elementor_Widget extends \Elementor\Widget_Base
             }
         ";
 
-        switch ($tiles_provider) {
-            case 'Esri World Imagery':
-                $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-                break;
-            case 'Esri Topo Map':
-                $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
-                break;
-            case 'Esri Street Map':
-                $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
-                break;
-            case 'MtbMap':
-                $tiles_url = 'http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png';
-                break;
-            case 'Carto DB Voyager':
-                $tiles_url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png';
-                break;
-            case 'Carto DB Dark Matter':
-                $tiles_url = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-                break;
-            case 'Carto DB Positron':
-                $tiles_url = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-                break;
-            case 'OPNVKarte':
-                $tiles_url = 'https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png';
-                break;
-            case 'OpenStreetMap':
-            default:
-                $tiles_url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-                break;
+        if ($use_custom_tiles === 'yes' && !empty($custom_tiles_url)) {
+            $tiles_url = str_replace(['{accessToken}', '{ext}'], [$custom_tiles_token, $custom_tiles_extension], $custom_tiles_url);
+        } else {
+            switch ($tiles_provider) {
+                case 'Esri World Imagery':
+                    $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+                    break;
+                case 'Esri Topo Map':
+                    $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
+                    break;
+                case 'Esri Street Map':
+                    $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
+                    break;
+                case 'MtbMap':
+                    $tiles_url = 'http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png';
+                    break;
+                case 'Carto DB Voyager':
+                    $tiles_url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png';
+                    break;
+                case 'Carto DB Dark Matter':
+                    $tiles_url = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+                    break;
+                case 'Carto DB Positron':
+                    $tiles_url = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+                    break;
+                case 'OPNVKarte':
+                    $tiles_url = 'https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png';
+                    break;
+                case 'OpenStreetMap':
+                default:
+                    $tiles_url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+                    break;
+            }
         }
 
         if (!empty($markers) || ($use_geojson === 'yes' && !empty($geojson_data))) {
@@ -552,12 +622,20 @@ class MultiMarker_Elementor_Widget extends \Elementor\Widget_Base
             echo '<script>
             jQuery(document).ready(function($) {
                 var map = L.map("' . $this->map_id . '").setView([' . ($center_latitude ? $center_latitude : $markers[0]['latitude']) . ', ' . ($center_longitude ? $center_longitude : $markers[0]['longitude']) . '], ' . $map_zoom . ');
-                L.tileLayer("' . $tiles_url . '", {
-                    attribution: "© OpenStreetMap contributors"
-                }).addTo(map);
-                L.control.fullscreen({
-                    position: "topleft"
-                }).addTo(map);';
+    L.tileLayer("' . $tiles_url . '", {
+        attribution: "© OpenStreetMap contributors"
+    }).addTo(map);
+    L.control.fullscreen({
+        position: "topleft"
+    }).addTo(map);
+
+    map.on("zoomend", function() {
+        if (map.getZoom() < ' . $min_zoom . ') {
+            map.setZoom(' . $min_zoom . ');
+        }
+    });
+';
+                
         
             if ($use_geojson === 'yes' && !empty($geojson_data)) {
                 echo 'var geojsonLayer = L.geoJSON(' . $geojson_data . ', {

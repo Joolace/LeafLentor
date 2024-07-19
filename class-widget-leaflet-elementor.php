@@ -238,6 +238,57 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         );
 
         $this->add_control(
+            'use_custom_tiles',
+            [
+                'label' => __('Use Custom Tiles', 'leaflet-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'leaflet-elementor-widget'),
+                'label_off' => __('No', 'leaflet-elementor-widget'),
+                'return_value' => 'yes',
+                'default' => '',
+            ]
+        );
+    
+        $this->add_control(
+            'custom_tiles_url',
+            [
+                'label' => __('Custom Tiles URL', 'leaflet-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'use_custom_tiles' => 'yes',
+                ],
+                'default' => '',
+                'placeholder' => __('Enter tile URL...', 'leaflet-elementor-widget'),
+            ]
+        );
+    
+        $this->add_control(
+            'custom_tiles_token',
+            [
+                'label' => __('Custom Tiles Token (if needed)', 'leaflet-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'use_custom_tiles' => 'yes',
+                ],
+                'default' => '',
+                'placeholder' => __('Enter token...', 'leaflet-elementor-widget'),
+            ]
+        );
+    
+        $this->add_control(
+            'custom_tiles_extension',
+            [
+                'label' => __('Custom Tiles Extension', 'leaflet-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'use_custom_tiles' => 'yes',
+                ],
+                'default' => 'png',
+                'placeholder' => __('Enter file extension (e.g., png, jpg)...', 'leaflet-elementor-widget'),
+            ]
+        );
+
+        $this->add_control(
             'attribution_text',
             [
                 'label' => __('Attribution Text', 'leaflet-elementor-widget'),
@@ -339,6 +390,17 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
             ]
         );
 
+        $this->add_control(
+            'min_zoom',
+            [
+                'label' => __('Min Zoom', 'leaflet-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'default' => 3,
+                'min' => 1,
+                'max' => 18,
+            ]
+        );
+
         $this->end_controls_section();
     }
 
@@ -360,7 +422,15 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $enable_fullscreen = isset($settings['enable_fullscreen']) ? $settings['enable_fullscreen'] : 'yes';
         $zoom = isset($settings['zoom']) ? $settings['zoom'] : 13;
         $attribution_text = $settings['attribution_text'] ?: '© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors';
+        $use_custom_tiles = isset($settings['use_custom_tiles']) ? $settings['use_custom_tiles'] : '';
+        $custom_tiles_url = isset($settings['custom_tiles_url']) ? $settings['custom_tiles_url'] : '';
+        $custom_tiles_token = isset($settings['custom_tiles_token']) ? $settings['custom_tiles_token'] : '';
+        $custom_tiles_extension = isset($settings['custom_tiles_extension']) ? $settings['custom_tiles_extension'] : 'png';
+        $min_zoom = isset($settings['min_zoom']) ? $settings['min_zoom'] : '';
 
+    if ($use_custom_tiles === 'yes' && !empty($custom_tiles_url)) {
+        $tiles_url = str_replace(['{accessToken}', '{ext}'], [$custom_tiles_token, $custom_tiles_extension], $custom_tiles_url);
+    } else {
         switch ($tiles_provider) {
             case 'Esri World Imagery':
                 $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
@@ -391,6 +461,8 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
                 $tiles_url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
                 break;
         }
+        $tiles_attribution = $attribution_text;
+    }
 
         $border_radius = isset($settings['border_radius']) ? $settings['border_radius'] : '';
         $border_width = isset($settings['border_width']) ? $settings['border_width'] : '';
@@ -446,6 +518,12 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         L.tileLayer("' . $tiles_url . '", {
             attribution: "' . $attribution_text . '"
         }).addTo(map);
+
+        map.on("zoomend", function() {
+        if (map.getZoom() < ' . $min_zoom . ') {
+            map.setZoom(' . $min_zoom . ');
+        }
+    });
     
         L.marker([' . esc_js($latitude) . ', ' . esc_js($longitude) . ']).addTo(map)
             .bindPopup("' . str_replace(array("\r\n", "\r", "\n"), "<br>", addslashes($popup_content)) . '", { autoClose: false });

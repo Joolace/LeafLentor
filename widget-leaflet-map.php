@@ -337,6 +337,69 @@ class Leaflet_Map_Widget extends Widget_Base
                 'default' => 'OpenStreetMap',
             ]
         );
+
+        $this->add_control(
+            'use_custom_tiles',
+            [
+                'label' => __('Use Custom Tiles', 'leaflet-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'leaflet-elementor-widget'),
+                'label_off' => __('No', 'leaflet-elementor-widget'),
+                'return_value' => 'yes',
+                'default' => '',
+            ]
+        );
+    
+        $this->add_control(
+            'custom_tiles_url',
+            [
+                'label' => __('Custom Tiles URL', 'leaflet-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'use_custom_tiles' => 'yes',
+                ],
+                'default' => '',
+                'placeholder' => __('Enter tile URL...', 'leaflet-elementor-widget'),
+            ]
+        );
+    
+        $this->add_control(
+            'custom_tiles_token',
+            [
+                'label' => __('Custom Tiles Token (if needed)', 'leaflet-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'use_custom_tiles' => 'yes',
+                ],
+                'default' => '',
+                'placeholder' => __('Enter token...', 'leaflet-elementor-widget'),
+            ]
+        );
+    
+        $this->add_control(
+            'custom_tiles_extension',
+            [
+                'label' => __('Custom Tiles Extension', 'leaflet-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::TEXT,
+                'condition' => [
+                    'use_custom_tiles' => 'yes',
+                ],
+                'default' => 'png',
+                'placeholder' => __('Enter file extension (e.g., png, jpg)...', 'leaflet-elementor-widget'),
+            ]
+        );
+
+        $this->add_control(
+            'min_zoom',
+            [
+                'label' => __('Min Zoom', 'leaflet-elementor-widget'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'default' => 3,
+                'min' => 1,
+                'max' => 18,
+                'label_block' => true,
+            ]
+        );
     
         $this->end_controls_section();
     }    
@@ -358,36 +421,45 @@ class Leaflet_Map_Widget extends Widget_Base
         $line_opacity = isset($settings['line_opacity']['size']) ? $settings['line_opacity']['size'] : 0.6;
         $line_weight = isset($settings['line_weight']['size']) ? $settings['line_weight']['size'] : 5;
         $tiles_provider = isset($settings['tiles_provider']) ? $settings['tiles_provider'] : 'OpenStreetMap';
+        $use_custom_tiles = isset($settings['use_custom_tiles']) ? $settings['use_custom_tiles'] : '';
+        $custom_tiles_url = isset($settings['custom_tiles_url']) ? $settings['custom_tiles_url'] : '';
+        $custom_tiles_token = isset($settings['custom_tiles_token']) ? $settings['custom_tiles_token'] : '';
+        $custom_tiles_extension = isset($settings['custom_tiles_extension']) ? $settings['custom_tiles_extension'] : 'png';
+        $min_zoom = isset($settings['min_zoom']) ? $settings['min_zoom'] : 3;
 
-        switch ($tiles_provider) {
-            case 'Esri World Imagery':
-                $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-                break;
-            case 'Esri Topo Map':
-                $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
-                break;
-            case 'Esri Street Map':
-                $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
-                break;
-            case 'MtbMap':
-                $tiles_url = 'http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png';
-                break;
-            case 'Carto DB Voyager':
-                $tiles_url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png';
-                break;
-            case 'Carto DB Dark Matter':
-                $tiles_url = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-                break;
-            case 'Carto DB Positron':
-                $tiles_url = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-                break;
-            case 'OPNVKarte':
-                $tiles_url = 'https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png';
-                break;
-            case 'OpenStreetMap':
-            default:
-                $tiles_url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-                break;
+        if ($use_custom_tiles === 'yes' && !empty($custom_tiles_url)) {
+            $tiles_url = str_replace(['{accessToken}', '{ext}'], [$custom_tiles_token, $custom_tiles_extension], $custom_tiles_url);
+        } else {
+            switch ($tiles_provider) {
+                case 'Esri World Imagery':
+                    $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+                    break;
+                case 'Esri Topo Map':
+                    $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
+                    break;
+                case 'Esri Street Map':
+                    $tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}';
+                    break;
+                case 'MtbMap':
+                    $tiles_url = 'http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png';
+                    break;
+                case 'Carto DB Voyager':
+                    $tiles_url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png';
+                    break;
+                case 'Carto DB Dark Matter':
+                    $tiles_url = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+                    break;
+                case 'Carto DB Positron':
+                    $tiles_url = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+                    break;
+                case 'OPNVKarte':
+                    $tiles_url = 'https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png';
+                    break;
+                case 'OpenStreetMap':
+                default:
+                    $tiles_url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+                    break;
+            }
         }
 ?>
 <style>
@@ -429,6 +501,12 @@ class Leaflet_Map_Widget extends Widget_Base
         L.control.fullscreen({
             position: 'topleft'
         }).addTo(map);
+
+        map.on("zoomend", function() {
+            if (map.getZoom() < <?php echo $min_zoom; ?>) {
+                map.setZoom(<?php echo $min_zoom; ?>);
+            }
+        });
 
         var markersData = <?php echo json_encode($markers); ?>;
         var mapboxApiKey = '<?php echo esc_js($settings['mapbox_api_key']); ?>';
