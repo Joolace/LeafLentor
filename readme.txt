@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/donate/?hosted_button_id=4VE33B9W75L4S
 Tags: leaflet, map, mobile, javascript, openstreetmap, elementor, addon
 Requires at least: 4.7
 Tested up to: 6.5.5
-Stable tag: 1.2.7
+Stable tag: 1.3.2
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html

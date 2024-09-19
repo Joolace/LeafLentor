@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Leaflet Elementor Widget
- * Plugin URI: https://github.com/Joolace/leaflet-elementor
+ * Plugin Name: LeafLentor
+ * Plugin URI: https://github.com/Joolace/LeafLentor
  * Description: Widget Leaflet for Elementor
  * Author: joolace
  * Author URI: https://github.com/Joolace/
- * Text Domain: leaflet-elementor-widget
- * Version: 1.3.1
+ * Text Domain: leaflentor
+ * Version: 1.3.2
  * License: GPL2
  * Leaflet Elementor Widget is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Leaflet Elementor Widget. If not, see  https://github.com/Joolace/leaflet-elementor/blob/main/LICENSE.
+ * along with Leaflet Elementor Widget. If not, see  https://github.com/Joolace/LeafLentor/blob/main/LICENSE.
  */
 
 function load_leaflet_elementor_widget_scripts() {
