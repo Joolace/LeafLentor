@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-GPLv2%2B-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
-Leaflet Elementor is a user-friendly WordPress plugin that seamlessly integrates the Leaflet mapping library with Elementor, allowing you to create beautiful, interactive maps for your website without any coding.
+LeafLentor is a user-friendly WordPress plugin that seamlessly integrates the Leaflet mapping library with Elementor, allowing you to create beautiful, interactive maps for your website without any coding.
 
 ## License
 
@@ -54,35 +54,35 @@ Ongoing development is underway. Reach out for support or feature requests.
 
 ## FAQs
 
-### What is Leaflet Elementor Widget?
-Leaflet Elementor integrates Leaflet maps seamlessly with Elementor, enabling easy creation and embedding of interactive maps in WordPress.
+### What is LeafLentor Widget?
+LeafLentor integrates Leaflet maps seamlessly with Elementor, enabling easy creation and embedding of interactive maps in WordPress.
 
-### Why should I use Leaflet Elementor Widget?
+### Why should I use LeafLentor Widget?
 - **Ease of Use:** No coding required; intuitive interface for adding markers, custom icons, and popups.
 - **Customization:** Adapt map styles to match your website's aesthetic.
 - **Flexibility:** Leverages Leaflet's lightweight yet powerful mapping capabilities.
 - **Integration:** Works seamlessly within Elementor for streamlined map creation.
 
-### What features does Leaflet Elementor offer?
+### What features does LeafLentor offer?
 - **Map Types:** Choose from various providers (OpenStreetMap, Mapbox).
 - **Markers:** Add markers with custom icons and informative popups.
 - **GeoJSON:** Integrate external geographic data seamlessly.
 - **Controls:** Include zoom, layer switching, and interactive elements.
 - **Responsive Design:** Maps adapt beautifully across devices.
 
-### How do I get started with Leaflet Elementor?
+### How do I get started with LeafLentor?
 - **Install:** Download and install from WordPress repository or manually upload.
 - **Activate:** Activate within WordPress dashboard.
-- **Create a Map:** Use Leaflet Elementor widget in Elementor to design maps.
+- **Create a Map:** Use LeafLentor widget in Elementor to design maps.
 - **Customize:** Adjust settings, add markers, style to preference.
 
-### Is Leaflet Elementor free?
-Yes, Leaflet Elementor is open-source and free to use.
+### Is LeafLentor free?
+Yes, LeafLentor is open-source and free to use.
 
 ### Where can I find support or report issues?
 Visit our GitHub page for support and issue reporting: [https://github.com/Joolace/leaflet-elementor](https://github.com/Joolace/leaflet-elementor)
 
-### Can I contribute to Leaflet Elementor?
+### Can I contribute to LeafLentor?
 Absolutely! Fork the repository on GitHub and submit pull requests for improvements.
 
 Feel free to suggest any further adjustments or additions to these FAQs!
