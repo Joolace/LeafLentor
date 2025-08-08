@@ -4,12 +4,12 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
 
     public function get_name()
     {
-        return 'leaflet-elementor-widget';
+        return 'leaflentor-map';
     }
 
     public function get_title()
     {
-        return __('Leaflet Widget', 'leaflet-elementor-widget');
+        return __('Leaflet Widget', 'leaflentor');
     }
 
     public function get_icon()
@@ -34,12 +34,12 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
     }
 
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'coordinates_section',
             [
-                'label' => __('Coordinates', 'leaflet-elementor-widget'),
+                'label' => __('Coordinates', 'leaflentor'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -47,10 +47,10 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'latitude',
             [
-                'label' => __('Latitude', 'leaflet-elementor-widget'),
+                'label' => __('Latitude', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => '',
-                'placeholder' => __('Enter latitude...', 'leaflet-elementor-widget'),
+                'placeholder' => __('Enter latitude...', 'leaflentor'),
                 'dynamic' => [
                     'active' => true,
                 ],
@@ -60,10 +60,10 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'longitude',
             [
-                'label' => __('Longitude', 'leaflet-elementor-widget'),
+                'label' => __('Longitude', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => '',
-                'placeholder' => __('Enter longitude...', 'leaflet-elementor-widget'),
+                'placeholder' => __('Enter longitude...', 'leaflentor'),
                 'dynamic' => [
                     'active' => true,
                 ],
@@ -75,7 +75,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'popup_content_section',
             [
-                'label' => __('Popup Content', 'leaflet-elementor-widget'),
+                'label' => __('Popup Content', 'leaflentor'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -83,10 +83,10 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'popup_content',
             [
-                'label' => __('Popup Content', 'leaflet-elementor-widget'),
+                'label' => __('Popup Content', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXTAREA,
                 'default' => '',
-                'placeholder' => __('Enter popup content...', 'leaflet-elementor-widget'),
+                'placeholder' => __('Enter popup content...', 'leaflentor'),
                 'dynamic' => [
                     'active' => true,
                 ],
@@ -98,7 +98,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'other_settings_section',
             [
-                'label' => __('Other Settings', 'leaflet-elementor-widget'),
+                'label' => __('Other Settings', 'leaflentor'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -106,11 +106,11 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'enable_fullscreen',
             [
-                'label' => __('Enable Fullscreen', 'leaflet-elementor-widget'),
+                'label' => __('Enable Fullscreen', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
                 'default' => 'yes',
-                'label_on' => __('Yes', 'leaflet-elementor-widget'),
-                'label_off' => __('No', 'leaflet-elementor-widget'),
+                'label_on' => __('Yes', 'leaflentor'),
+                'label_off' => __('No', 'leaflentor'),
                 'return_value' => 'yes',
             ]
         );
@@ -118,7 +118,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'height',
             [
-                'label' => __('Height (Desktop)', 'leaflet-elementor-widget'),
+                'label' => __('Height (Desktop)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 500,
                 'min' => 100,
@@ -130,7 +130,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'height_laptop',
             [
-                'label' => __('Height (Laptop)', 'leaflet-elementor-widget'),
+                'label' => __('Height (Laptop)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 400,
                 'min' => 100,
@@ -142,7 +142,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'height_tablet_horizontal',
             [
-                'label' => __('Height (Horizontal Tablet)', 'leaflet-elementor-widget'),
+                'label' => __('Height (Horizontal Tablet)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 350,
                 'min' => 100,
@@ -154,7 +154,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'height_tablet',
             [
-                'label' => __('Height (Tablet)', 'leaflet-elementor-widget'),
+                'label' => __('Height (Tablet)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 350,
                 'min' => 100,
@@ -166,7 +166,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'height_mobile',
             [
-                'label' => __('Height (Mobile)', 'leaflet-elementor-widget'),
+                'label' => __('Height (Mobile)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 300,
                 'min' => 100,
@@ -178,7 +178,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'height_unit',
             [
-                'label' => __('Height Unit', 'leaflet-elementor-widget'),
+                'label' => __('Height Unit', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => [
                     'px' => 'px',
@@ -193,10 +193,10 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'width',
             [
-                'label' => __('Width', 'leaflet-elementor-widget'),
+                'label' => __('Width', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => 600,
-                'min' => 100,
+                'default' => 100,
+                'min' => 1,
                 'max' => 2000,
                 'step' => 10,
             ]
@@ -205,7 +205,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'width_unit',
             [
-                'label' => __('Width Unit', 'leaflet-elementor-widget'),
+                'label' => __('Width Unit', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => [
                     'px' => 'px',
@@ -220,7 +220,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'tiles_provider',
             [
-                'label' => __('Tiles Provider', 'leaflet-elementor-widget'),
+                'label' => __('Tiles Provider', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => [
                     'OpenStreetMap' => 'OpenStreetMap',
@@ -240,10 +240,10 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'use_custom_tiles',
             [
-                'label' => __('Use Custom Tiles', 'leaflet-elementor-widget'),
+                'label' => __('Use Custom Tiles', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Yes', 'leaflet-elementor-widget'),
-                'label_off' => __('No', 'leaflet-elementor-widget'),
+                'label_on' => __('Yes', 'leaflentor'),
+                'label_off' => __('No', 'leaflentor'),
                 'return_value' => 'yes',
                 'default' => '',
             ]
@@ -252,49 +252,49 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'custom_tiles_url',
             [
-                'label' => __('Custom Tiles URL', 'leaflet-elementor-widget'),
+                'label' => __('Custom Tiles URL', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'condition' => [
                     'use_custom_tiles' => 'yes',
                 ],
                 'default' => '',
-                'placeholder' => __('Enter tile URL...', 'leaflet-elementor-widget'),
+                'placeholder' => __('Enter tile URL...', 'leaflentor'),
             ]
         );
     
         $this->add_control(
             'custom_tiles_token',
             [
-                'label' => __('Custom Tiles Token (if needed)', 'leaflet-elementor-widget'),
+                'label' => __('Custom Tiles Token (if needed)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'condition' => [
                     'use_custom_tiles' => 'yes',
                 ],
                 'default' => '',
-                'placeholder' => __('Enter token...', 'leaflet-elementor-widget'),
+                'placeholder' => __('Enter token...', 'leaflentor'),
             ]
         );
     
         $this->add_control(
             'custom_tiles_extension',
             [
-                'label' => __('Custom Tiles Extension', 'leaflet-elementor-widget'),
+                'label' => __('Custom Tiles Extension', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'condition' => [
                     'use_custom_tiles' => 'yes',
                 ],
                 'default' => 'png',
-                'placeholder' => __('Enter file extension (e.g., png, jpg)...', 'leaflet-elementor-widget'),
+                'placeholder' => __('Enter file extension (e.g., png, jpg)...', 'leaflentor'),
             ]
         );
 
         $this->add_control(
             'attribution_text',
             [
-                'label' => __('Attribution Text', 'leaflet-elementor-widget'),
+                'label' => __('Attribution Text', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => '© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors',
-                'placeholder' => __('Enter attribution text...', 'leaflet-elementor-widget'),
+                'placeholder' => __('Enter attribution text...', 'leaflentor'),
                 'dynamic' => [
                     'active' => true,
                 ],
@@ -306,7 +306,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'border_style_section',
             [
-                'label' => __('Stile del Bordo', 'leaflet-elementor-widget'),
+                'label' => __('Stile del Bordo', 'leaflentor'),
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
             ]
         );
@@ -314,7 +314,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'border_radius',
             [
-                'label' => __('Border Radius', 'leaflet-elementor-widget'),
+                'label' => __('Border Radius', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => ['px', '%', 'em', 'rem'],
                 'selectors' => [
@@ -326,7 +326,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'border_width',
             [
-                'label' => __('Border Width', 'leaflet-elementor-widget'),
+                'label' => __('Border Width', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', 'rem'],
                 'selectors' => [
@@ -338,7 +338,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'border_color',
             [
-                'label' => __('Border Color', 'leaflet-elementor-widget'),
+                'label' => __('Border Color', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .leaflet-container' => 'border-color: {{VALUE}};',
@@ -349,18 +349,18 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'border_style',
             [
-                'label' => __('Border Style', 'leaflet-elementor-widget'),
+                'label' => __('Border Style', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => [
-                    'none' => __('None', 'leaflet-elementor-widget'),
-                    'solid' => __('Solid', 'leaflet-elementor-widget'),
-                    'dashed' => __('Dashed', 'leaflet-elementor-widget'),
-                    'dotted' => __('Dotted', 'leaflet-elementor-widget'),
-                    'double' => __('Double', 'leaflet-elementor-widget'),
-                    'groove' => __('Groove', 'leaflet-elementor-widget'),
-                    'ridge' => __('Ridge', 'leaflet-elementor-widget'),
-                    'inset' => __('Inset', 'leaflet-elementor-widget'),
-                    'outset' => __('Outset', 'leaflet-elementor-widget'),
+                    'none' => __('None', 'leaflentor'),
+                    'solid' => __('Solid', 'leaflentor'),
+                    'dashed' => __('Dashed', 'leaflentor'),
+                    'dotted' => __('Dotted', 'leaflentor'),
+                    'double' => __('Double', 'leaflentor'),
+                    'groove' => __('Groove', 'leaflentor'),
+                    'ridge' => __('Ridge', 'leaflentor'),
+                    'inset' => __('Inset', 'leaflentor'),
+                    'outset' => __('Outset', 'leaflentor'),
                 ],
                 'selectors' => [
                     '{{WRAPPER}} .leaflet-container' => 'border-style: {{VALUE}};',
@@ -373,7 +373,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'zoom_section',
             [
-                'label' => __('Zoom', 'leaflet-elementor-widget'),
+                'label' => __('Zoom', 'leaflentor'),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -381,7 +381,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'zoom',
             [
-                'label' => __('Zoom', 'leaflet-elementor-widget'),
+                'label' => __('Zoom', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 13,
                 'min' => 1,
@@ -393,7 +393,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $this->add_control(
             'min_zoom',
             [
-                'label' => __('Min Zoom', 'leaflet-elementor-widget'),
+                'label' => __('Min Zoom', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 3,
                 'min' => 1,
@@ -416,7 +416,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $height_tablet_horizontal = isset($settings['height_tablet_horizontal']) ? $settings['height_tablet_horizontal'] : 350;
         $height_laptop = isset($settings['height_laptop']) ? $settings['height_laptop'] : 400;
         $height_unit = isset($settings['height_unit']) ? $settings['height_unit'] : 'px';
-        $width = isset($settings['width']) ? $settings['width'] : 600;
+        $width = isset($settings['width']) ? $settings['width'] : 100;
         $width_unit = isset($settings['width_unit']) ? $settings['width_unit'] : 'px';
         $tiles_provider = isset($settings['tiles_provider']) ? $settings['tiles_provider'] : 'OpenStreetMap';
         $enable_fullscreen = isset($settings['enable_fullscreen']) ? $settings['enable_fullscreen'] : 'yes';
@@ -426,7 +426,8 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
         $custom_tiles_url = isset($settings['custom_tiles_url']) ? $settings['custom_tiles_url'] : '';
         $custom_tiles_token = isset($settings['custom_tiles_token']) ? $settings['custom_tiles_token'] : '';
         $custom_tiles_extension = isset($settings['custom_tiles_extension']) ? $settings['custom_tiles_extension'] : 'png';
-        $min_zoom = isset($settings['min_zoom']) ? $settings['min_zoom'] : '';
+        $min_zoom = isset($settings['min_zoom']) && $settings['min_zoom'] !== '' ? (int) $settings['min_zoom'] : 1;
+        $min_zoom = max(1, min(18, $min_zoom));
 
     if ($use_custom_tiles === 'yes' && !empty($custom_tiles_url)) {
         $tiles_url = str_replace(['{accessToken}', '{ext}'], [$custom_tiles_token, $custom_tiles_extension], $custom_tiles_url);
@@ -512,31 +513,29 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
     </style>';
 
             echo '<div id="' . esc_attr($this->map_id) . '" class="leaflet-map" style="height: ' . esc_attr($height) . esc_attr($height_unit) . '; width: ' . esc_attr($width) . esc_attr($width_unit) . '; ' . esc_attr($border_style_string) . '"></div>';
-            echo '<script>
-    jQuery(document).ready(function($) {
-        var map = L.map("' . esc_js($this->map_id) . '").setView([' . esc_js($latitude) . ', ' . esc_js($longitude) . '], ' . esc_js($zoom) . ');
-        L.tileLayer("' . $tiles_url . '", {
-            attribution: "' . $attribution_text . '"
-        }).addTo(map);
+            $popup_html = wp_kses_post( $popup_content );
 
-        map.on("zoomend", function() {
-        if (map.getZoom() < ' . $min_zoom . ') {
-            map.setZoom(' . $min_zoom . ');
+echo '<script>
+jQuery(document).ready(function($) {
+    var map = L.map(' . wp_json_encode( $this->map_id ) . ').setView([' . wp_json_encode( (float) $latitude ) . ', ' . wp_json_encode( (float) $longitude ) . '], ' . wp_json_encode( (int) $zoom ) . ');
+
+    L.tileLayer(' . wp_json_encode( $tiles_url ) . ', {
+        attribution: ' . wp_json_encode( wp_kses_post( $attribution_text ) ) . '
+    }).addTo(map);
+
+    map.on("zoomend", function() {
+        if (map.getZoom() < ' . wp_json_encode( $min_zoom ) . ') {
+            map.setZoom(' . wp_json_encode( $min_zoom ) . ');
         }
     });
-    
-        L.marker([' . esc_js($latitude) . ', ' . esc_js($longitude) . ']).addTo(map)
-            .bindPopup("' . str_replace(array("\r\n", "\r", "\n"), "<br>", addslashes($popup_content)) . '", { autoClose: false });
-            ';
 
-            if ($enable_fullscreen == 'yes') {
-                echo 'L.control.fullscreen({ position: "topleft" }).addTo(map);';
-            }
-
-            echo '});
-    </script>';
+    L.marker([' . wp_json_encode( (float) $latitude ) . ', ' . wp_json_encode( (float) $longitude ) . ']).addTo(map)
+        .bindPopup(' . wp_json_encode( $popup_html ) . ', { autoClose: false });
+    ' . ( $enable_fullscreen === 'yes' ? 'L.control.fullscreen({ position: "topleft" }).addTo(map);' : '' ) . '
+});
+</script>';
         } else {
-            echo '<p>Invalid coordinates</p>';
+            echo '<p>' . esc_html__( 'Invalid coordinates', 'leaflentor' ) . '</p>';
         }
     }
 }

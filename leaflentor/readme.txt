@@ -1,11 +1,11 @@
 === LeafLentor ===
 Contributors: joolace
 Donate link: https://www.paypal.com/donate/?hosted_button_id=4VE33B9W75L4S
-Tags: leaflet, map, mobile, javascript, openstreetmap, elementor, addon
-Requires at least: 4.7
+Tags: leaflet, map, addon, javascript, elementor
+Requires at least: 6.5
 Tested up to: 6.8
-Stable tag: 1.3.3
-Requires PHP: 7.0
+Stable tag: 1.4.0
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 

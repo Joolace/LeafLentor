@@ -13,12 +13,12 @@ class Leaflet_Map_Widget extends Widget_Base
 
     public function get_name()
     {
-        return 'leaflet-map-widget';
+        return 'leaflentor-routing';
     }
 
     public function get_title()
     {
-        return __('Leaflet Routing Machine', 'leaflet-map-widget');
+        return __('Leaflet Routing Machine', 'leaflentor');
     }
 
     public function get_icon()
@@ -43,12 +43,12 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->map_id = 'map-routing-' . self::$map_count;
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'marker_section',
             [
-                'label' => __('Marker', 'leaflet-map-widget'),
+                'label' => __('Marker', 'leaflentor'),
             ]
         );
     
@@ -57,7 +57,7 @@ class Leaflet_Map_Widget extends Widget_Base
         $marker_repeater->add_control(
             'marker_latitude',
             [
-                'label' => __('Latitude', 'leaflet-map-widget'),
+                'label' => __('Latitude', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => '51.5',
                 'dynamic' => [
@@ -69,7 +69,7 @@ class Leaflet_Map_Widget extends Widget_Base
         $marker_repeater->add_control(
             'marker_longitude',
             [
-                'label' => __('Longitude', 'leaflet-map-widget'),
+                'label' => __('Longitude', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => '-0.09',
                 'dynamic' => [
@@ -81,12 +81,12 @@ class Leaflet_Map_Widget extends Widget_Base
         $marker_repeater->add_control(
             'waypoints',
             [
-                'label' => __('Waypoints', 'leaflet-map-widget'),
+                'label' => __('Waypoints', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::REPEATER,
                 'fields' => [
                     [
                         'name' => 'waypoint_latitude',
-                        'label' => __('Waypoint Latitude', 'leaflet-map-widget'),
+                        'label' => __('Waypoint Latitude', 'leaflentor'),
                         'type' => \Elementor\Controls_Manager::TEXT,
                         'default' => '',
                         'dynamic' => [
@@ -95,7 +95,7 @@ class Leaflet_Map_Widget extends Widget_Base
                     ],
                     [
                         'name' => 'waypoint_longitude',
-                        'label' => __('Waypoint Longitude', 'leaflet-map-widget'),
+                        'label' => __('Waypoint Longitude', 'leaflentor'),
                         'type' => \Elementor\Controls_Manager::TEXT,
                         'default' => '',
                         'dynamic' => [
@@ -110,11 +110,11 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'markers',
             [
-                'label' => __('Markers', 'leaflet-map-widget'),
+                'label' => __('Markers', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::REPEATER,
                 'fields' => $marker_repeater->get_controls(),
                 'default' => [],
-                'title_field' => __('Marker', 'leaflet-map-widget'),
+                'title_field' => __('Marker', 'leaflentor'),
             ]
         );
     
@@ -123,26 +123,26 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->start_controls_section(
             'map_settings_section',
             [
-                'label' => __('Map Settings', 'leaflet-map-widget'),
+                'label' => __('Map Settings', 'leaflentor'),
             ]
         );
     
         $this->add_control(
             'map_width',
             [
-                'label' => __('Width', 'leaflet-map-widget'),
+                'label' => __('Width', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => 400,
-                'description' => __('Enter map width.', 'leaflet-map-widget'),
+                'default' => 100,
+                'description' => __('Enter map width.', 'leaflentor'),
             ]
         );
     
         $this->add_control(
             'map_width_unit',
             [
-                'label' => __('Unit', 'leaflet-map-widget'),
+                'label' => __('Unit', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SELECT,
-                'default' => 'px',
+                'default' => '%',
                 'options' => [
                     'px' => 'px',
                     '%' => '%',
@@ -155,17 +155,17 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'map_height',
             [
-                'label' => __('Height', 'leaflet-map-widget'),
+                'label' => __('Height', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 500,
-                'description' => __('Enter map height.', 'leaflet-map-widget'),
+                'description' => __('Enter map height.', 'leaflentor'),
             ]
         );
 
         $this->add_control(
             'map_height_laptop',
             [
-                'label' => __('Height (Laptop)', 'leaflet-map-widget'),
+                'label' => __('Height (Laptop)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 400,
                 'min' => 100,
@@ -177,7 +177,7 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'map_height_tablet_horizontal',
             [
-                'label' => __('Height (Horizontal Tablet)', 'leaflet-map-widget'),
+                'label' => __('Height (Horizontal Tablet)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 350,
                 'min' => 100,
@@ -189,7 +189,7 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'map_height_tablet',
             [
-                'label' => __('Height (Tablet)', 'leaflet-map-widget'),
+                'label' => __('Height (Tablet)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 350,
                 'min' => 100,
@@ -201,7 +201,7 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'map_height_mobile',
             [
-                'label' => __('Height (Mobile)', 'leaflet-map-widget'),
+                'label' => __('Height (Mobile)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 300,
                 'min' => 100,
@@ -213,7 +213,7 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'map_height_unit',
             [
-                'label' => __('Unit', 'leaflet-map-widget'),
+                'label' => __('Unit', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'default' => 'px',
                 'options' => [
@@ -228,9 +228,9 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'mapbox_api_key',
             [
-                'label' => __('Mapbox API Key', 'leaflet-map-widget'),
+                'label' => __('Mapbox API Key', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
-                'description' => __('Enter your Mapbox API Key.', 'leaflet-map-widget'),
+                'description' => __('Enter your Mapbox API Key.', 'leaflentor'),
             ]
         );
     
@@ -239,14 +239,14 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->start_controls_section(
             'line_style_section',
             [
-                'label' => __('Line Style', 'leaflet-map-widget'),
+                'label' => __('Line Style', 'leaflentor'),
             ]
         );
     
         $this->add_control(
             'line_color',
             [
-                'label' => __('Line Color', 'leaflet-map-widget'),
+                'label' => __('Line Color', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'default' => '#3388ff',
                 'selectors' => [
@@ -258,7 +258,7 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'line_opacity',
             [
-                'label' => __('Line Opacity', 'leaflet-map-widget'),
+                'label' => __('Line Opacity', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 0.6,
@@ -279,7 +279,7 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'line_weight',
             [
-                'label' => __('Line Weight', 'leaflet-map-widget'),
+                'label' => __('Line Weight', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SLIDER,
                 'default' => [
                     'size' => 5,
@@ -301,19 +301,19 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->start_controls_section(
             'routing_settings_section',
             [
-                'label' => __('Routing Settings', 'leaflet-map-widget'),
+                'label' => __('Routing Settings', 'leaflentor'),
             ]
         );
     
         $this->add_control(
             'routing_type',
             [
-                'label' => __('Routing Type', 'leaflet-map-widget'),
+                'label' => __('Routing Type', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'default' => 'road',
                 'options' => [
-                    'road' => __('Road', 'leaflet-map-widget'),
-                    'pedestrian' => __('Pedestrian', 'leaflet-map-widget'),
+                    'road' => __('Road', 'leaflentor'),
+                    'pedestrian' => __('Pedestrian', 'leaflentor'),
                 ],
             ]
         );
@@ -321,7 +321,7 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'tiles_provider',
             [
-                'label' => __('Tiles Provider', 'leaflet-map-widget'),
+                'label' => __('Tiles Provider', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => [
                     'OpenStreetMap' => 'OpenStreetMap',
@@ -341,10 +341,10 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'use_custom_tiles',
             [
-                'label' => __('Use Custom Tiles', 'leaflet-elementor-widget'),
+                'label' => __('Use Custom Tiles', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
-                'label_on' => __('Yes', 'leaflet-elementor-widget'),
-                'label_off' => __('No', 'leaflet-elementor-widget'),
+                'label_on' => __('Yes', 'leaflentor'),
+                'label_off' => __('No', 'leaflentor'),
                 'return_value' => 'yes',
                 'default' => '',
             ]
@@ -353,46 +353,46 @@ class Leaflet_Map_Widget extends Widget_Base
         $this->add_control(
             'custom_tiles_url',
             [
-                'label' => __('Custom Tiles URL', 'leaflet-elementor-widget'),
+                'label' => __('Custom Tiles URL', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'condition' => [
                     'use_custom_tiles' => 'yes',
                 ],
                 'default' => '',
-                'placeholder' => __('Enter tile URL...', 'leaflet-elementor-widget'),
+                'placeholder' => __('Enter tile URL...', 'leaflentor'),
             ]
         );
     
         $this->add_control(
             'custom_tiles_token',
             [
-                'label' => __('Custom Tiles Token (if needed)', 'leaflet-elementor-widget'),
+                'label' => __('Custom Tiles Token (if needed)', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'condition' => [
                     'use_custom_tiles' => 'yes',
                 ],
                 'default' => '',
-                'placeholder' => __('Enter token...', 'leaflet-elementor-widget'),
+                'placeholder' => __('Enter token...', 'leaflentor'),
             ]
         );
     
         $this->add_control(
             'custom_tiles_extension',
             [
-                'label' => __('Custom Tiles Extension', 'leaflet-elementor-widget'),
+                'label' => __('Custom Tiles Extension', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'condition' => [
                     'use_custom_tiles' => 'yes',
                 ],
                 'default' => 'png',
-                'placeholder' => __('Enter file extension (e.g., png, jpg)...', 'leaflet-elementor-widget'),
+                'placeholder' => __('Enter file extension (e.g., png, jpg)...', 'leaflentor'),
             ]
         );
 
         $this->add_control(
             'min_zoom',
             [
-                'label' => __('Min Zoom', 'leaflet-elementor-widget'),
+                'label' => __('Min Zoom', 'leaflentor'),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 3,
                 'min' => 1,
@@ -425,7 +425,8 @@ class Leaflet_Map_Widget extends Widget_Base
         $custom_tiles_url = isset($settings['custom_tiles_url']) ? $settings['custom_tiles_url'] : '';
         $custom_tiles_token = isset($settings['custom_tiles_token']) ? $settings['custom_tiles_token'] : '';
         $custom_tiles_extension = isset($settings['custom_tiles_extension']) ? $settings['custom_tiles_extension'] : 'png';
-        $min_zoom = isset($settings['min_zoom']) ? $settings['min_zoom'] : 3;
+        $min_zoom = isset($settings['min_zoom']) ? (int) $settings['min_zoom'] : 3;
+        $min_zoom = max(1, min(18, $min_zoom));
 
         if ($use_custom_tiles === 'yes' && !empty($custom_tiles_url)) {
             $tiles_url = str_replace(['{accessToken}', '{ext}'], [$custom_tiles_token, $custom_tiles_extension], $custom_tiles_url);
@@ -494,7 +495,7 @@ class Leaflet_Map_Widget extends Widget_Base
         var map = L.map('<?php echo esc_js($this->map_id); ?>').setView([51.505, -0.09], 13);
         var waypoints = [];
 
-        L.tileLayer(<?php echo json_encode($tiles_url); ?>, {
+        L.tileLayer(<?php echo wp_json_encode( $tiles_url ); ?>, {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
@@ -503,12 +504,12 @@ class Leaflet_Map_Widget extends Widget_Base
         }).addTo(map);
 
         map.on("zoomend", function() {
-            if (map.getZoom() < <?php echo $min_zoom; ?>) {
-                map.setZoom(<?php echo $min_zoom; ?>);
-            }
+           if (map.getZoom() < <?php echo wp_json_encode( (int) $min_zoom ); ?>) {
+           map.setZoom(<?php echo wp_json_encode( (int) $min_zoom ); ?>);
+         }
         });
 
-        var markersData = <?php echo json_encode($markers); ?>;
+        var markersData = <?php echo wp_json_encode( $markers ); ?>;
         var mapboxApiKey = '<?php echo esc_js($settings['mapbox_api_key']); ?>';
         var routingType = '<?php echo esc_js($settings['routing_type']); ?>';
 
@@ -545,7 +546,7 @@ class Leaflet_Map_Widget extends Widget_Base
                 }),
                 collapsible: false,
                 createMarker: function(i, wp, nWps) {
-                    if (!<?php echo is_user_logged_in() ? 'true' : 'false'; ?>) {
+                    if (!<?php echo wp_json_encode( is_user_logged_in() ); ?>) {
                         return null;
                     }
                     return L.marker(wp.latLng, {

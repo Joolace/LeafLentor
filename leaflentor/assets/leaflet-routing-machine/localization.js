@@ -109,7 +109,7 @@
 		}
 	});
 
-	module.exports = L.extend(Localization, {
+	var LeafLentorLocalization = L.extend(Localization, {
 		'en': {
 			directions: {
 				N: 'north',
@@ -783,4 +783,10 @@
 			}
 		}
 	});
+// Export/attach (DENTRO la IIFE)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = LeafLentorLocalization;
+} else {
+  L.Routing.Localization = LeafLentorLocalization;
+}
 })();
