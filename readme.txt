@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/donate/?hosted_button_id=4VE33B9W75L4S
 Tags: leaflet, map, mobile, javascript, openstreetmap, elementor, addon
 Requires at least: 4.7
 Tested up to: 6.5.5
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -74,6 +74,9 @@ Let me know if you'd like any adjustments or additions to these FAQs!
 2. This is the second screen shot
 
 == Changelog ==
+
+= 1.3.3 =
+* Fixed an issue where map initialization was not 100% width
 
 = 1.2.7 =
 * Fixed a problem with the popup, when you wrote the content and pressed "enter" to return, the widget broke. It is now interpreted as <br>

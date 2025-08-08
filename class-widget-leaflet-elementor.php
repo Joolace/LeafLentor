@@ -213,7 +213,7 @@ class Leaflet_Elementor_Widget extends \Elementor\Widget_Base
                     'rem' => 'rem',
                     '%' => '%',
                 ],
-                'default' => 'px',
+                'default' => '%',
             ]
         );
 
