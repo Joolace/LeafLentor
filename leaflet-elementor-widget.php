@@ -6,7 +6,7 @@
  * Author: joolace
  * Author URI: https://github.com/Joolace/
  * Text Domain: leaflentor
- * Version: 1.3.2
+ * Version: 1.3.3
  * License: GPL2
  * Leaflet Elementor Widget is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
