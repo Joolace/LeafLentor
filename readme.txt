@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: Joolace
+Contributors: joolace
 Donate link: https://www.paypal.com/donate/?hosted_button_id=4VE33B9W75L4S
 Tags: leaflet, map, mobile, javascript, openstreetmap, elementor, addon
 Requires at least: 4.7
